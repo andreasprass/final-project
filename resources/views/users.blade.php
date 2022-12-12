@@ -40,6 +40,8 @@
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Position</th>
+                                <th>Division</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,6 +60,14 @@
                                         
                                     @endif 
                                 </td>
+                                <td>
+                                    @if($user->position == 1)
+                                        Manager
+                                    @else
+                                        Staff
+                                    @endif
+                                </td>
+                                <td>{{ $user->division->div_name }}</td>
                                 <td>
                                     <a href="update_users/{{ $user->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     
@@ -78,6 +88,8 @@
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Status</th>
+                                <th>Position</th>
+                                <th>Division</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

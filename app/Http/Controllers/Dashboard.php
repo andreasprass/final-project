@@ -11,9 +11,7 @@ class Dashboard extends Controller
         return view('index');
     }
     public function get_users(){
-        return view('users',[
-            "users" => User::all()
-        ]);
+        
     }
     public function get_position(){
         return view('positions');

@@ -17,12 +17,18 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    public function division(){
+        return $this->belongsTo(Division::class,'div_id','id');
+    }
+
     protected $fillable = [
         'name',
         'email',
         'phone',
         'password',
         'status',
+        'position',
+        'div_id',
     ];
 
     /**

@@ -2,25 +2,23 @@
 @section('main')
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Department Page</h1>
+        <h1>Logbook Page</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="index.html">Home</a>
                 </li>
-                <li class="breadcrumb-item active">Departments</li>
+                <li class="breadcrumb-item active">Logbook</li>
             </ol>
         </nav>
     </div>
 
-    @if(session()->has('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-info-circle me-1"></i> {{ session('success') }} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="bi bi-info-circle me-1"></i> A simple info alert with icon—check it out! <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    @endif
-    
+
     <div>
-        <a href="{{ route('get_dept_add') }}"><button type="button" class="btn btn-primary btn-sm w-25 mb-3">Add Department</button></a>
+        <a href="{{ route('get_logbook_add') }}"><button type="button" class="btn btn-primary btn-sm w-25 mb-3">Add Logbook</button></a>
     </div>
 
     <section class="section">
@@ -36,21 +34,32 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Department Name</th>
-                                <th>Description</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Accepted</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($departments as $dept)
+                            @foreach ($logbooks as $log)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $dept->dept_name }}</td>
-                                <td>{{ $dept->description }}</td>
+                                <td>{{ $log->user_id }}</td>
+                                <td>{{ $log->created_at }}</td>
                                 <td>
-                                    <a href="update_departments/{{ $dept->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
+                                    @if($log->accepted == 0)
+                                        <i class="bi bi-x-circle"> </i>Not Yet Reviewed
+                                    @elseif($log->accepted == 1)
+                                        <i class="bi bi-check-circle-fill text-success"> </i>Accepted
+                                    @elseif($log->accepted == 2)
+                                        <i class="bi bi-check-circle-fill text-success"> </i>Need revision
+                                    @endif 
+                                </td>
+                                <td>
+                                    <a href="" class="btn btn-info"><span> <i class="bi bi-exclamation-circle"></i></span></a>
+                                    <a href="{{ url("/update-logbook/$log->id") }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     
-                                    <form action="delete_departments/{{ $dept->id }}" method="post" class="d-inline">
+                                    <form action="" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span><i class="bi bi-trash"></i></span></button>
@@ -62,8 +71,9 @@
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                <th>Department Name</th>
-                                <th>Description</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Accepted</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -73,6 +83,4 @@
         </div>
     </section>
 </main>
-
-
 @endsection

@@ -21,8 +21,8 @@
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
@@ -46,7 +46,7 @@
   ======================================================== -->
 </head>
 
-<body>
+<body onload="showDataToEditor()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -291,26 +291,26 @@
 
       <li class="nav-item">
         <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Structural</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Employee Management</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="components-alerts.html" class="active">
+            <a href="{{ route('get_users') }}" class="">
               <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
-          <li>
-            <a href="components-accordion.html">
+          {{-- <li>
+            <a href="{{ route('get_positions') }}">
               <i class="bi bi-circle"></i><span>Position</span>
             </a>
-          </li>
+          </li> --}}
           <li>
-            <a href="components-badges.html">
+            <a href="{{ route('get_divisions') }}">
               <i class="bi bi-circle"></i><span>Division</span>
             </a>
           </li>
           <li>
-            <a href="components-breadcrumbs.html">
+            <a href="{{ route('get_departments') }}">
               <i class="bi bi-circle"></i><span>Department</span>
             </a>
           </li>
@@ -345,12 +345,12 @@
         </ul>
       </li><!-- End Forms Nav -->
 
-      <li class="nav-heading">Pages</li>
+      <li class="nav-heading">Features</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
+        <a class="nav-link collapsed" href="{{ route('get_logbook') }}" >
+          <i class="bi bi-book"></i>
+          <span>Logbook</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -381,7 +381,7 @@
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/chart.js/chart.min.js"></script>
   <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="{{ asset('assets/vendor/quill/quill.min.js')}}"></script>
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
@@ -391,14 +391,45 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
 
+  
+  <!-- Initialize Quill editor -->
+  {{-- <script>
+    var quill = new Quill('#editor', {
+      theme: 'snow'
+    });
+  </script> --}}
+
   <script>
     $(function () {
         $("#users_table").DataTable({
-          responsive:true
+
         });
     });
+
+    var quill = new Quill('#editor', {
+      modules: {
+        toolbar: [
+          ['bold', 'italic'],
+          ['link', 'blockquote', 'code-block', 'image'],
+          [{ list: 'ordered' }, { list: 'bullet' }]
+        ]
+      },
+      placeholder: 'Write your logbook here...  ',
+      theme: 'snow'
+    });
+
+    function submitQuill(){
+      var qhtml = document.querySelector('input[name=logbook]');
+      qhtml.value = JSON.stringify(quill.getContents());
+    }
+    
+    function showDataToEditor(){
+      var qhtml = document.querySelector('input[name=logbook]');
+      var data = JSON.parse(qhtml.value);
+      quill.setContents(data);
+    }
+    
   </script>
-  
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

@@ -3,13 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class Users extends Controller
+class UserController extends Controller
 {
+    public function index(){
+        return view('users',[
+            "users" => User::all()
+        ]);
+    }
+    
     public function get_users_add(){
-        return view('users_add');
+        return view('users_add',[
+            'divisions' => Division::all()
+        ]);
     }
     
     public function store_user(Request $req){
@@ -23,6 +32,7 @@ class Users extends Controller
         $data = User::find($id);
         return view('users_edit', [
             'update' => $data,
+            'divisions' => Division::all()
         ]);
     }
 

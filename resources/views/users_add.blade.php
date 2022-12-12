@@ -39,6 +39,26 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10"><input type="password" class="form-control" id="password" name="password"/></div>
                     </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Position</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="position" name="position">
+                                <option value="2">Staff</option>
+                                <option value="1">Manager</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Division</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="div_id" name="div_id">
+                               <option selected>Choose Division...</option>
+                                @foreach($divisions as $div)
+                                    <option value="{{ $div->id }}">{{ $div->div_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>

@@ -41,6 +41,41 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                         <div class="col-sm-10"><input type="password" class="form-control" id="password" name="password" value="{{ $update->password }}"/></div>
                     </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Position</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="position" name="position">
+                                <option value="2">Staff</option>
+                                <option value="1">Manager</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Division</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="div_id" name="div_id">
+                                <option selected="true" value="{{ old('div_name', $update->division->id) }}">{{ $update->division->div_name }}</option>
+                                @foreach($divisions as $div)
+                                @if($div->id == $update->division->id) @continue @endif
+                                    <option value="{{ $div->id }}">{{ $div->div_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="inputPassword" class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="Default select example" id="status" name="status">
+                                @if($update->status == 1)
+                                    <option value="2"><i class="bi bi-x-circle"> </i>Inactive</option>
+                                    <option selected value="1"><i class="bi bi-check-circle-fill text-success"> </i>Active</option>
+                                @else
+                                    <option selected value="2"><i class="bi bi-x-circle"> </i>Inactive</option>
+                                    <option value="1"><i class="bi bi-check-circle-fill text-success"> </i>Active</option>
+                                @endif
+                            </select>
+                        </div>
+                    </div>
                     
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>

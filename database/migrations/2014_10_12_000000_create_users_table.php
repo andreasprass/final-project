@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('position');
             $table->tinyInteger('status')->default(1);
+            $table->foreignId('div_id');
             $table->rememberToken();
             $table->timestamps();
         });

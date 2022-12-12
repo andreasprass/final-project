@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('logbooks', function (Blueprint $table) {
             $table->id();
-            $table->string('div_name');
-            $table->string('description')->nullable();
-            $table->foreignId('div_id');
+            $table->string('logbook');
+            $table->tinyInteger('accepted')->default(0);
+            $table->foreignId('user_id')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('logbooks');
     }
 };
