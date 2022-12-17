@@ -17,6 +17,9 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'users';
+
     public function division(){
         return $this->belongsTo(Division::class,'div_id','id');
     }

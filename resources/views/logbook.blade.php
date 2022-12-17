@@ -36,7 +36,7 @@
                                 <th>No</th>
                                 <th>User</th>
                                 <th>Date</th>
-                                <th>Accepted</th>
+                                <th>Approval</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -48,18 +48,18 @@
                                 <td>{{ $log->created_at }}</td>
                                 <td>
                                     @if($log->accepted == 0)
-                                        <i class="bi bi-x-circle"> </i>Not Yet Reviewed
+                                        <span class="badge bg-secondary">Not Yet Reviewed</span>
                                     @elseif($log->accepted == 1)
-                                        <i class="bi bi-check-circle-fill text-success"> </i>Accepted
+                                        <span class="badge bg-success">Aprroved</span>
                                     @elseif($log->accepted == 2)
-                                        <i class="bi bi-check-circle-fill text-success"> </i>Need revision
+                                        <span class="badge bg-warning">Need Revision</span>
                                     @endif 
                                 </td>
                                 <td>
-                                    <a href="" class="btn btn-info"><span> <i class="bi bi-exclamation-circle"></i></span></a>
+                                    <a href="{{ url("/logbook-acc/$log->id") }}" class="btn btn-info"><span> <i class="bi bi-info-circle"></i></span></a>
                                     <a href="{{ url("/update-logbook/$log->id") }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     
-                                    <form action="" method="post" class="d-inline">
+                                    <form action="{{ url("/delete-logbook/$log->id") }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span><i class="bi bi-trash"></i></span></button>
@@ -73,7 +73,7 @@
                                 <th>No</th>
                                 <th>User</th>
                                 <th>Date</th>
-                                <th>Accepted</th>
+                                <th>Approval</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

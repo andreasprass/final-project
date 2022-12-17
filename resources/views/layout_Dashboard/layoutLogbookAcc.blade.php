@@ -46,7 +46,7 @@
   ======================================================== -->
 </head>
 
-<body onload="showDataToEditor()">
+<body onload="load()">
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -263,13 +263,10 @@
             </li>
 
             <li>
-              <form action="/logout" method="post">
-                @csrf
-                <button type="submit" class="dropdown-item d-flex align-items-center">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
-                </button> 
-              </form>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
             </li>
 
           </ul><!-- End Profile Dropdown Items -->
@@ -408,8 +405,8 @@
 
         });
     });
-
-    var quill = new Quill('#editor', {
+    
+    var quill_acc = new Quill('#editor-acc', {
       modules: {
         toolbar: [
           ['bold', 'italic'],
@@ -421,15 +418,15 @@
       theme: 'snow'
     });
 
-    function submitQuill(){
-      var qhtml = document.querySelector('input[name=logbook]');
-      qhtml.value = JSON.stringify(quill.getContents());
-    }
-    
-    function showDataToEditor(){
+    function editor_acc(){ 
       var qhtml = document.querySelector('input[name=logbook]');
       var data = JSON.parse(qhtml.value);
-      quill.setContents(data);
+      quill_acc.setContents(data);
+      quill_acc.enable(false);
+    }
+
+    function load(){
+      editor_acc(); 
     }
   </script>
 

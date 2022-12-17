@@ -67,7 +67,13 @@
                                         Staff
                                     @endif
                                 </td>
-                                <td>{{ $user->division->div_name }}</td>
+                                <td>
+                                    @if($user->div_id == null)
+                                        <p>User belum tergabung ke divisi</p>
+                                    @else
+                                        {{ $user->division->div_name }}
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="update_users/{{ $user->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     

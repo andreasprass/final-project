@@ -23,6 +23,20 @@ class LogbookController extends Controller
         return redirect()->route('get_logbook');
     }
     
+    public function get_acc($id){
+        $data = Logbook::find($id);
+        return view('logbook_acc',[
+            'acc' => $data,
+        ]);
+    }
+
+    public function acc(Request $req){
+        $data = $req->except(['_token','_method']);
+        Logbook::where('id',$data['id'])
+        ->update($data);
+        return redirect()->route('get_logbook')->with('success', 'The data has been updated');
+    }
+
     public function edit($id){
         $data = Logbook::find($id);
         return view('logbook_edit',[

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('divisions', function (Blueprint $table) {
             $table->id();
             $table->string('div_name');
-            $table->string('description')->nullable();
+            $table->string('div_shortened');
             $table->foreignId('dept_id');
             $table->timestamps();
         });

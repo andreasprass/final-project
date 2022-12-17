@@ -52,7 +52,7 @@
                         <label for="inputPassword" class="col-sm-2 col-form-label">Division</label>
                         <div class="col-sm-10">
                             <select class="form-select" aria-label="Default select example" id="div_id" name="div_id">
-                               <option selected>Choose Division...</option>
+                               <option selected value="">Choose Division...</option>
                                 @foreach($divisions as $div)
                                     <option value="{{ $div->id }}">{{ $div->div_name }}</option>
                                 @endforeach

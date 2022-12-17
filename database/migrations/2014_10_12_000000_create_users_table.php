@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone');
-            $table->string('password')->nullable();
-            $table->string('position');
+            $table->string('phone')->nullable();
+            $table->string('password')->default('user');
+            $table->string('position')->nullable();
             $table->tinyInteger('status')->default(1);
-            $table->foreignId('div_id');
+            $table->tinyInteger('user_type')->default(3);
+            $table->foreignId('div_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
