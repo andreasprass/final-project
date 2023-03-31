@@ -28,6 +28,7 @@
                     <div id="editor"></div>
                     <!-- End Quill Editor Default -->
                     <input name="logbook" type="hidden"></input>
+                    <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
                     <div>
                         <button type="submit" onclick="submitQuill()" class="btn btn-primary mt-3 float-end">Submit Logbook</button>
                     </div>

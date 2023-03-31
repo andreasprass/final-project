@@ -6,7 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogbookController;
+use App\Http\Controllers\ScoringController;
+use App\Http\Controllers\CriteriaController;
 use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\NormalizeController;
 use App\Http\Controllers\DepartmentController;
 
 /*
@@ -22,11 +25,10 @@ use App\Http\Controllers\DepartmentController;
 
 Route::get('/login',[AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login',[AuthController::class, 'validation'])->name('validation')->middleware('guest');
-Route::post('/logout',[AuthController::class, 'logout'])->name('logout')->middleware('guest');
-
 Route::get('/register',[AuthController::class, 'register'])->name('get_register')->middleware('guest');
 Route::post('/register',[AuthController::class, 'store_register'])->name('get_register')->middleware('guest');
 
+Route::post('/logout',[AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::get('/',[Dashboard::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/dashboard',[Dashboard::class, 'index'])->name('dashboard')->middleware('auth');
@@ -34,9 +36,9 @@ Route::get('/dashboard',[Dashboard::class, 'index'])->name('dashboard')->middlew
 //Route masih satu persatu agar tidak lupa, next development bisa di rapikan dan grouping
 
 // Users Route
-Route::get('/users',[UserController::class, 'index'])->name('get_users')->middleware('auth');
-Route::get('/add_users',[UserController::class, 'get_users_add'])->name('get_users_add')->middleware('auth');
-Route::post('/add_users',[UserController::class, 'store_user'])->name('user_add')->middleware('auth');
+Route::get('/users',[UserController::class, 'index'])->name('get_users');
+Route::get('/add_users',[UserController::class, 'get_users_add'])->name('get_users_add');
+Route::post('/add_users',[UserController::class, 'store_user'])->name('user_add');
 Route::get('/update_users/{id}',[UserController::class, 'get_update_user'])->name('get_user_update')->middleware('auth');
 Route::put('/update_users',[UserController::class, 'update_user'])->name('user_update')->middleware('auth');
 Route::get('/delete_users',[UserController::class, 'get_delete_user'])->name('get_user_delete')->middleware('auth');
@@ -75,4 +77,13 @@ Route::get('/delete-logbook',[LogbookController::class, 'get_destroy'])->name('g
 Route::delete('/delete-logbook/{id}',[LogbookController::class, 'destroy'])->name('logbook_delete');
 
 
+Route::get('/criterias',[CriteriaController::class, 'index'])->name('criterias');
+Route::get('/add-criterias',[CriteriaController::class, 'create'])->name('get_criteria_add');
+Route::post('/add-criterias',[CriteriaController::class, 'store'])->name('criteria_add');
 
+Route::get('/scoring',[ScoringController::class, 'index'])->name('scoring');
+Route::get('/add-scoring',[ScoringController::class, 'create'])->name('get_scoring_add');
+Route::post('/add-scoring',[ScoringController::class, 'store'])->name('scoring_add');
+
+//Normalisasi
+Route::get('/normalize',[NormalizeController::class, 'index'])->name('normalize');

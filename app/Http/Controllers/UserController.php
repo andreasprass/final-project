@@ -11,7 +11,8 @@ class UserController extends Controller
 {
     public function index(){
         return view('users',[
-            "users" => User::all()
+            "users" => User::all(),
+            'divisions' => Division::all()
         ]);
     }
     
@@ -26,13 +27,14 @@ class UserController extends Controller
         $data['password'] = Hash::make($data['password']);
         User::create($data);
         return redirect()->route('get_users');
+        // dd($data);
     }
 
     public function get_update_user($id){
         $data = User::find($id);
         return view('users_edit', [
             'update' => $data,
-            'divisions' => Division::all()
+            'divisions' => Division::all(),
         ]);
     }
 

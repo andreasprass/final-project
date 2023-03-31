@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('divisions', function (Blueprint $table) {
+        Schema::create('scorings', function (Blueprint $table) {
             $table->id();
-            $table->string('div_name');
-            $table->string('descripyion')->nullable();
-            $table->foreignId('dept_id');
+            $table->foreignId('user_id');
+            $table->integer('score');
+            $table->foreignId('criteria_id');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisions');
+        Schema::dropIfExists('scorings');
     }
 };

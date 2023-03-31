@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-body ">
-                <h5 class="card-title">Today's Logbook</h5>
+                <h5 class="card-title">{{ $update->users->name }}'s Logbook</h5>
                 <form action="{{ route('logbook_update') }}" method="post">
                     @csrf
                     @method('put')

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>Dashboard</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -53,8 +53,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Career Network</span>
+        <img src="{{ asset('assets/img/logo.png') }}" alt="">
+        {{-- <span class="d-none d-lg-block">Career Network</span> --}}
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -220,12 +220,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">Kevin</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ Auth::user()->name }}</h6>
+              <h6>Kevin</h6>
               <span>Web Designer</span>
             </li>
             <li>
@@ -263,12 +263,12 @@
             </li>
 
             <li>
-              <form action="/logout" method="post">
-                @csrf
-                <button type="submit" class="dropdown-item d-flex align-items-center">
-                  <i class="bi bi-box-arrow-right"></i>
-                  <span>Sign Out</span>
-                </button> 
+              <form action="{{ route('logout') }}" method="post">
+                  @csrf
+                  <button type="submit" class="dropdown-item d-flex align-items-center ">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </button> 
               </form>
             </li>
 
@@ -286,7 +286,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="{{ route('dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -326,23 +326,24 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
-              <i class="bi bi-circle"></i><span>Criterias</span>
+            <a href="{{ route('criterias') }}">
+              <i class="bi bi-circle"></i><span>Criteria</span>
             </a>
           </li>
+          
           <li>
-            <a href="forms-layouts.html">
+            <a href="{{ route('scoring') }}">
               <i class="bi bi-circle"></i><span>Scoring</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Result</span>
+            <a href="{{ route('normalize') }}">
+              <i class="bi bi-circle"></i><span>Normalize</span>
             </a>
           </li>
           <li>
             <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Top Candidate</span>
+              <i class="bi bi-circle"></i><span>Candidate Ranking</span>
             </a>
           </li>
         </ul>

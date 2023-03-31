@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('logbook');
             $table->tinyInteger('accepted')->default(0);
             $table->foreignId('user_id')->nullable();
+            $table->foreignId('approver_id')->nullable();
             $table->timestamps();
         });
     }

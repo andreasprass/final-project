@@ -53,13 +53,22 @@
                     <div class="row mb-3">
                         <label for="inputPassword" class="col-sm-2 col-form-label">Division</label>
                         <div class="col-sm-10">
-                            <select class="form-select" aria-label="Default select example" id="div_id" name="div_id">
-                                <option selected="true" value="{{ old('div_name', $update->division->id) }}">{{ $update->division->div_name }}</option>
-                                @foreach($divisions as $div)
-                                @if($div->id == $update->division->id) @continue @endif
-                                    <option value="{{ $div->id }}">{{ $div->div_name }}</option>
-                                @endforeach
-                            </select>
+                            @if($update->div_id == null)
+                                <select class="form-select" aria-label="Default select example" id="div_id" name="div_id">
+                                    <option selected value="">Choose Division...</option>
+                                    @foreach($divisions as $div)
+                                        <option value="{{ $div->id }}">{{ $div->div_name }}</option>
+                                    @endforeach
+                                </select>
+                            @else
+                                <select class="form-select" aria-label="Default select example" id="div_id" name="div_id">
+                                    <option selected="true" value="{{ old('div_name', $update->division->id) }}">{{ $update->division->div_name }}</option>
+                                    @foreach($divisions as $div)
+                                    @if($div->id == $update->division->id) @continue @endif
+                                        <option value="{{ $div->id }}">{{ $div->div_name }}</option>
+                                    @endforeach
+                                </select>
+                            @endif
                         </div>
                     </div>
                     <div class="row mb-3">

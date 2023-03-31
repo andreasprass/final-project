@@ -37,6 +37,7 @@
                                 <th>User</th>
                                 <th>Date</th>
                                 <th>Approval</th>
+                                <th>Approver</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -44,7 +45,7 @@
                             @foreach ($logbooks as $log)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $log->user_id }}</td>
+                                <td>{{ $log->users->name }}</td>
                                 <td>{{ $log->created_at }}</td>
                                 <td>
                                     @if($log->accepted == 0)
@@ -54,6 +55,13 @@
                                     @elseif($log->accepted == 2)
                                         <span class="badge bg-warning">Need Revision</span>
                                     @endif 
+                                </td>
+                                <td>
+                                    @if($log->approver_id == null)
+                                        -
+                                    @else
+                                        {{ $log->approver->name }}
+                                    @endif    
                                 </td>
                                 <td>
                                     <a href="{{ url("/logbook-acc/$log->id") }}" class="btn btn-info"><span> <i class="bi bi-info-circle"></i></span></a>
@@ -74,6 +82,7 @@
                                 <th>User</th>
                                 <th>Date</th>
                                 <th>Approval</th>
+                                <th>Approver</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

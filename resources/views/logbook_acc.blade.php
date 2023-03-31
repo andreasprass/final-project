@@ -21,7 +21,7 @@
 
         <div class="card">
             <div class="card-body ">
-                <h5 class="card-title">Today's Logbook</h5>
+                <h5 class="card-title">{{ $acc->users->name }}'s Logbook</h5>
                 <form action="{{ route('logbook_acc') }}" method="post">
                     @csrf
                     @method('put')
@@ -30,6 +30,7 @@
                     <!-- End Quill Editor Default -->
                     <input name="logbook" type="hidden" value="{{ $acc->logbook }}"></input>
                     <input name="id" type="hidden" value="{{ $acc->id }}"></input>
+                    <input name="approver_id" type="hidden" value="{{ Auth::user()->id }}"></input>
                     <select name="accepted" class="form-select mt-3" aria-label="Default select example">
                         @if($acc->accepted == 1)
                         <option selected value="1">Approved</option>

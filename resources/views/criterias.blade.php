@@ -2,13 +2,13 @@
 @section('main')
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>User Page</h1>
+        <h1>Criteria Page</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="index.html">Home</a>
                 </li>
-                <li class="breadcrumb-item active">Users</li>
+                <li class="breadcrumb-item active">Criteria</li>
             </ol>
         </nav>
     </div>
@@ -20,7 +20,7 @@
     @endif
     
     <div>
-        <a href="{{ route('get_users_add') }}"><button type="button" class="btn btn-primary btn-sm w-25 mb-3">Add User</button></a>
+        <a href="{{ route('get_criteria_add') }}"><button type="button" class="btn btn-primary btn-sm w-25 mb-3">Add Criteria</button></a>
     </div>
 
     <section class="section">
@@ -36,53 +36,27 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Position</th>
-                                <th>Division</th>
+                                <th>Criteria</th>
+                                <th>Min / Max</th>
+                                <th>Weight</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($criteria_data as $crit)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->phone }}</td>
-                                <td>{{ $user->email }}</td>
+                                <td>{{ $crit->criteria }}</td>
+                                <td>{{ ucfirst($crit->min_max) }}</td>
+                                <td>{{ $crit->weight }}</td>
                                 <td>
-                                    @if($user->status == 1)
-                                            <i class="bi bi-check-circle-fill text-success"> </i>Active
-                                        @else
-                                            <i class="bi bi-x-circle"> </i>Inactive
-                                        
-                                    @endif 
-                                </td>
-                                <td>
-                                    @if($user->position == 1)
-                                        Manager
-                                    @else
-                                        Staff
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($user->div_id == null)
-                                        <p>-</p>
-                                    @else
-                                        {{ $user->division->div_name }}
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="update_users/{{ $user->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
+                                    <a href="" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     
-                                    <form action="delete_users/{{ $user->id }}" method="post" class="d-inline">
+                                    <form action="" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span><i class="bi bi-trash"></i></span></button>
                                     </form>
-                                    
                                 </td>
                             </tr>
                             @endforeach
@@ -90,12 +64,9 @@
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                <th>Name</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Position</th>
-                                <th>Division</th>
+                                <th>Criteria</th>
+                                <th>Min / Max</th>
+                                <th>Weight</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
