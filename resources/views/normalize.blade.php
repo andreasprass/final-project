@@ -28,24 +28,28 @@
                     you wish to conver to a datatable
                 </p>
                 <div class="dataTable-container">
-                    <table class="table  stripe table-responsive" style="width:100%;">
+                    <table class="table display table-striped dt-responsive nowrap" style="width:100%" id="users_table">
                         <thead>
                             <tr>
-                                <th><!-- Empty for the left top corner of the table --></th>
-                                @foreach(array_keys(current($data)) as $criteria)
-                                    <th>{{ $criteria }}</th>
+                                <th>Rank</th>
+                                <th>User ID</th>
+                                <th>Total Score</th>
+                                @foreach($criterias as $crit)
+                                <th>{{ $crit->criteria }}</th>
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach(array_keys($data) as $user)
-                            <tr>
-                                <td><strong>{{ $user }}</strong></td>
-                                @foreach(array_keys($data[$user]) as $criteria)
-                                    <td>{{ $data[$user][$criteria] }}</td>
-                                @endforeach
-                            </tr>
-                        @endforeach
+                            @foreach ($matrix as $row)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $row['user_id'] }}</td>
+                                    <td>{{ $row['total_score'] }}</td>
+                                    @foreach ($row['scores'] as $score)
+                                        <td>{{ $score['score'] }}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
