@@ -338,12 +338,7 @@
           </li>
           <li>
             <a href="{{ route('normalize') }}">
-              <i class="bi bi-circle"></i><span>Normalize</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Candidate Ranking</span>
+              <i class="bi bi-circle"></i><span>Ranking</span>
             </a>
           </li>
         </ul>
