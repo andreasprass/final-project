@@ -65,7 +65,7 @@
                         <thead>
                             <tr>
                                 <th>Rank</th>
-                                <th>User ID</th>
+                                <th>User Name</th>
                                 <th>Total Score</th>
                                 @foreach($criterias as $crit)
                                 <th>{{ $crit->criteria }}</th>
@@ -76,7 +76,7 @@
                             @foreach ($matrix as $row)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $row['user_id'] }}</td>
+                                    <td>{{ $row['user_name'] }}</td>
                                     <td>{{ $row['total_score'] }}</td>
                                     @foreach ($row['scores'] as $score)
                                         <td>{{ $score['score'] }}</td>
