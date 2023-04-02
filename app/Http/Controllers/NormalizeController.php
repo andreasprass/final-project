@@ -96,6 +96,8 @@ class NormalizeController extends Controller
         return view('normalize', [
             'matrix' => $matrix,
             'criterias' => $criteria,
+            'users' => $users,
+            'normalizedScores' => $normalizedScores,
         ]);
 
    }

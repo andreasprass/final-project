@@ -31,20 +31,18 @@
                     <table class="table display table-striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>User ID</th>
-                                <th>Total Score</th>
-                                @foreach($criterias as $crit)
-                                <th>{{ $crit->criteria }}</th>
+                                <th>User</th>
+                                @foreach ($criterias as $criterion)
+                                    <th>{{ $criterion->criteria }}</th>
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($matrix as $row)
+                            @foreach ($users as $user)
                                 <tr>
-                                    <td>{{ $row['user_id'] }}</td>
-                                    <td>{{ $row['total_score'] }}</td>
-                                    @foreach ($row['scores'] as $score)
-                                        <td>{{ $score['score'] }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    @foreach ($criterias as $criterion)
+                                        <td>{{ number_format($normalizedScores[$user->id][$criterion->id], 2) }}</td>
                                     @endforeach
                                 </tr>
                             @endforeach
