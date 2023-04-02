@@ -11,37 +11,15 @@ class ScoringController extends Controller
 {
     public function index(){
 
-        $records = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
-        //  
-
-        // Build up a map like this from the data with the names
-        // $names = [
-        //     'user_id' => 'name1',
-        //     'criteria_id' => 'name2',
-        // ];
-
-        $rows = [];
-        $columns = [];
-        foreach($records as $index => $record) {
-            // Create an empty array if the key does not exist yet
-            if(!isset($rows[$record->user_id])) {
-                $rows[$record->user_id] = [];
-            }
-        
-            // Add the column to the array of columns if it's not yet in there
-            if(!in_array($record->criteria_id, $columns)) {
-                $columns[] = $record->criteria_id;
-            }
-        
-            // Add the grade to the 2 dimensional array
-            $rows[$record->user_id][$record->criteria_id] = $record->score;
-        }
+        $scores = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
+        $users = User::all();
+        $criteria = Criteria::all();
 
         // dd($rows);
         return view('scoring',[
-            'rows' => $rows,
-            'columns' => $columns,
-            'grade' => $record->score,
+            'users' => $users,
+            'criteria' => $criteria,
+            'scores' => $scores,    
         ]);
     }
 

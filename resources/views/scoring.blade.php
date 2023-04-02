@@ -32,24 +32,30 @@
                     you wish to conver to a datatable
                 </p>
                 <div class="dataTable-container">
-                    <table class="table  stripe table-responsive" style="width:100%;">
+                    <table class="table  stripe table-responsive" style="width:100%;" id="users_table">
                         <thead>
                             <tr>
-                                <th><!-- Empty for the left top corner of the table --></th>
-                                @foreach($columns as $criteria)
-                                <th>{{ $criteria }}</th>
+                                <th>Name</th>
+                                @foreach ($criteria as $criterion)
+                                    <th>{{ $criterion->criteria}}</th>
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($rows as $user => $columns)
-                            <tr>
-                                <td><strong>{{ $user }}</strong></td>
-                                @foreach($columns as $criteria => $grade)
-                                <td>{{ $grade }}</td>
-                                @endforeach
-                            </tr>
-                        @endforeach
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    @foreach ($criteria as $criterion)
+                                        <td>
+                                            @foreach ($scores as $score)
+                                                @if ($score->user_id == $user->id && $score->criteria_id == $criterion->id)
+                                                    {{ $score->score }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

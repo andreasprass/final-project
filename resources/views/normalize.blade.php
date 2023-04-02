@@ -31,7 +31,7 @@
                     <table class="table display table-striped dt-responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
-                                <th>User</th>
+                                <th>Name</th>
                                 @foreach ($criterias as $criterion)
                                     <th>{{ $criterion->criteria }}</th>
                                 @endforeach
@@ -63,7 +63,7 @@
                         <thead>
                             <tr>
                                 <th>Rank</th>
-                                <th>User Name</th>
+                                <th>Name</th>
                                 <th>Total Score</th>
                                 @foreach($criterias as $crit)
                                 <th>{{ $crit->criteria }}</th>
