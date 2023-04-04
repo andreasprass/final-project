@@ -403,6 +403,18 @@
         $("#users_table").DataTable({
 
         });
+        $("#normalisation_table").DataTable({
+
+        });
+        $("#users_table").DataTable({
+
+        });
+        $("#ranking_table").DataTable({
+
+        });
+        $("#scoring_table").DataTable({
+
+        });
     });
 
     var quill = new Quill('#editor', {

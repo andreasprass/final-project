@@ -47,7 +47,7 @@
                     
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-1"><a href="{{ route('criterias') }}"><button type="button" class="btn btn-secondary">Back</button></a></div>
+                        <div class="col-sm-1"><a href="{{ route('scoring') }}"><button type="button" class="btn btn-secondary">Back</button></a></div>
                         <div class="col-sm-2"><button type="submit" class="btn btn-primary">Save Data</button></div>
                     </div>
                 </form>

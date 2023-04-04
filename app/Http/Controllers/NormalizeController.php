@@ -12,6 +12,7 @@ class NormalizeController extends Controller
    public function index(){
         $criteria = Criteria::all();
         $userScores = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
+        $userName = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
         $users = User::all();
 
         foreach($criteria as $crit){
@@ -92,11 +93,14 @@ class NormalizeController extends Controller
             ];
         }
 
+        
+
         // Pass the matrix to the view
         return view('normalize', [
             'matrix' => $matrix,
             'criterias' => $criteria,
             'users' => $users,
+            'userScore' => $userName,
             'normalizedScores' => $normalizedScores,
         ]);
 

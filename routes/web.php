@@ -84,6 +84,8 @@ Route::post('/add-criterias',[CriteriaController::class, 'store'])->name('criter
 Route::get('/scoring',[ScoringController::class, 'index'])->name('scoring');
 Route::get('/add-scoring',[ScoringController::class, 'create'])->name('get_scoring_add');
 Route::post('/add-scoring',[ScoringController::class, 'store'])->name('scoring_add');
+Route::get('/update_scoring/{id}',[ScoringController::class, 'get_update_scoring'])->name('get_scoring_update');
+Route::delete('/delete_scoring/{id}',[ScoringController::class, 'delete_scoring'])->name('scoring_delete');
 
 //Normalisasi
 Route::get('/normalize',[NormalizeController::class, 'index'])->name('normalize');

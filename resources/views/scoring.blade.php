@@ -32,13 +32,14 @@
                     you wish to conver to a datatable
                 </p>
                 <div class="dataTable-container">
-                    <table class="table  stripe table-responsive" style="width:100%;" id="users_table">
+                    <table class="table  stripe table-responsive" style="width:100%;" id="scoring_table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 @foreach ($criteria as $criterion)
-                                    <th>{{ $criterion->criteria}}</th>
+                                    <th>{{ $criterion->criteria}} ({{ $criterion->min_max}})</th>
                                 @endforeach
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,6 +55,15 @@
                                             @endforeach
                                         </td>
                                     @endforeach
+                                    <td>
+                                        <a href="update_scoring/{{ $user->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
+                                        
+                                        <form action="delete_scoring/{{ $user->id }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span><i class="bi bi-trash"></i></span></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

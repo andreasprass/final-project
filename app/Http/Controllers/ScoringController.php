@@ -52,6 +52,29 @@ class ScoringController extends Controller
         }
         return redirect()->route('scoring')->with('success', 'The data has been updated');
     }
+
+    public function get_update_scoring($id){
+        $data = Scoring::find($id);
+        return view('users_edit', [
+            'update' => $data,
+            'divisions' => Division::all(),
+        ]);
+    }
+
+    public function update_scoring(Request $req){
+        $data = $req->except(['_token','_method']);
+        User::where('id', $data['id'])
+        ->update($data);
+        return redirect()->route('scoring')->with('success', 'The data has been updated');
+    }
+
+    public function delete_scoring($id){
+        // $data = Scoring::where('user_id', $id)->get();
+        // for($i=0;$i<count($data);$i++){
+            Scoring::where('user_id', $id)->delete();
+        // }
+        return redirect()->route('scoring')->with('success', 'The data has been deleted');
+    }
     
 
 }
