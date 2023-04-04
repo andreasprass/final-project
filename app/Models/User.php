@@ -23,6 +23,9 @@ class User extends Authenticatable
     public function division(){
         return $this->belongsTo(Division::class,'div_id','id');
     }
+    public function scoring(){
+        return $this->hasMany(Scoring::class,'user_id','id');
+    }
 
     protected $fillable = [
         'name',

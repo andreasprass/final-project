@@ -11,7 +11,7 @@ class Scoring extends Model
 
     protected $table = 'scorings';
 
-    public function user(){
+    public function users(){
         return $this->belongsTo(User::class,'user_id','id');
     }
     public function criteria(){

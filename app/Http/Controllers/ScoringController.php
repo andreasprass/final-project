@@ -54,14 +54,20 @@ class ScoringController extends Controller
     }
 
     public function get_update_scoring($id){
-        $data = Scoring::find($id);
-        return view('users_edit', [
+        $criteria = Criteria::all();
+        $data = Scoring::where('user_id', $id)->get();
+        $data_id = $data->first();
+        
+        // dd($data_id->criteria->criteria);
+        return view('scoring_edit', [
             'update' => $data,
-            'divisions' => Division::all(),
+            'data_id' => $data_id,
+            'criterias' => $criteria,
         ]);
+        
     }
-
-    public function update_scoring(Request $req){
+ 
+    public function update(Request $req){
         $data = $req->except(['_token','_method']);
         User::where('id', $data['id'])
         ->update($data);
