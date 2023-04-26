@@ -27,14 +27,19 @@
                     <div class="row mb-3">
                         <label for="inputName" class="col-sm-2 col-form-label">User Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="user_id" name="user_id[]" disabled value="{{ old('user_id', $data_id->users->name) }}"/>
+                            <input type="text" class="form-control" id="" name="" disabled value="{{ old('user_id', $data_id->users->name) }}"/>
+                            @foreach ($update as $data)
+                                <input type="hidden" class="form-control" id="id" name="id[]" value="{{ old('id', $data->id) }}"/>
+                                {{-- <input type="hidden" class="form-control" id="user_id" name="user_id[]" value="{{ old('user_id', $data->user_id) }}"/> --}}
+                            @endforeach
+                            
                         </div>
                     </div>
                     @foreach($update as $data)
                     <div class="row mb-3">
                         <label for="criteria-name" class="col-sm-2 col-form-label">{{ $data->criteria->criteria }}</label>
                         <div class="col-sm-10">
-                            <input type="hidden" id="criteria_id" name="criteria_id[]" value="{{ $data->id }}"/>
+                            <input type="hidden" id="criteria_id" name="criteria_id[]" value="{{ $data->criteria_id }}"/>
                             <input type="number" class="form-control" id="score" name="score[]" required  value="{{ old('score', $data->score) }}"/>
                         </div>
                     </div>

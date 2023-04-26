@@ -54,7 +54,7 @@ class ScoringController extends Controller
     }
 
     public function get_update_scoring($id){
-        $criteria = Criteria::all();
+        // $criteria = Criteria::all();
         $data = Scoring::where('user_id', $id)->get();
         $data_id = $data->first();
         
@@ -62,16 +62,28 @@ class ScoringController extends Controller
         return view('scoring_edit', [
             'update' => $data,
             'data_id' => $data_id,
-            'criterias' => $criteria,
+            // 'criterias' => $criteria,
         ]);
         
     }
  
     public function update(Request $req){
-        $data = $req->except(['_token','_method']);
-        User::where('id', $data['id'])
-        ->update($data);
-        return redirect()->route('scoring')->with('success', 'The data has been updated');
+        $id = $req->id;
+        $criteria_id = $req->criteria_id;
+        $user_id = $req->user_id;
+        $score = $req->score;
+
+        for($i=0;$i<count($id);$i++){
+
+            $datasave = [
+                'score' => $score[$i],
+            ];
+
+            Scoring::where('id', $id[$i])
+            ->where('criteria_id',$criteria_id[$i])
+            ->update($datasave);
+        }
+        return redirect()->route('scoring')->with('success', "The data has been updated");
     }
 
     public function delete_scoring($id){
