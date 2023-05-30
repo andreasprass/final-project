@@ -26,7 +26,7 @@ use App\Http\Controllers\DepartmentController;
 Route::get('/login',[AuthController::class, 'login'])->name('login');
 Route::post('/login',[AuthController::class, 'validation'])->name('validation');
 Route::get('/register',[AuthController::class, 'register'])->name('get_register');
-Route::post('/register',[AuthController::class, 'store_register'])->name('get_register');
+Route::post('/register',[AuthController::class, 'store_register'])->name('register');
 
 Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 

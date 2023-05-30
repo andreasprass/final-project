@@ -18,10 +18,10 @@
     </div>
 
     <section class="section">
-
+ 
         <div class="card">
             <div class="card-body ">
-                <h5 class="card-title">Today's Logbook</h5>
+                <h5 class="card-title">{{ Auth::user()->name }}'s Logbook</h5>
                 <form action="{{ route('logbook_add') }}" method="post">
                     @csrf
                     <!-- Quill Editor Default -->

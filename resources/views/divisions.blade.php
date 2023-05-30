@@ -48,7 +48,11 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $div->div_name }}</td>
                                 <td>{{ $div->description }}</td>
-                                <td>{{ $div->department->dept_name }}</td>
+                                @if($div->dept_id == 0)
+                                <td> - </td>
+                                @else
+                                <td> {{ $div->department->dept_name }} </td>
+                                @endif
                                 <td>
                                     <a href="update_divisions/{{ $div->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     
