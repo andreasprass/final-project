@@ -53,8 +53,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="{{ asset('assets/img/logo.png') }}" alt="">
-        {{-- <span class="d-none d-lg-block">Career Network</span> --}}
+        <img src="{{ asset('assets/img/favicon.png') }}" alt="">
+        <span class="d-none d-lg-block">Career Network</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -79,14 +79,14 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ Auth::user()->name }}</h6>
-              <span>{{ Auth::user()->position }}</span>
+              <span>{{ Auth::user()->division->div_name }}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('myprofile') }}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -139,17 +139,17 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+        <a class="nav-link {{ ($active === "dashboard") ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{ ($active === "department" || $active === "division" || $active === "user") ? '' : 'collapsed' }}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Employee Management</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content" data-bs-parent="#sidebar-nav">
+        <ul id="components-nav" class="nav-content {{ ($active === "department" || $active === "division" || $active === "user") ? '' : 'collapse' }}" data-bs-parent="#sidebar-nav">
           
           {{-- <li>
             <a href="{{ route('get_positions') }}">
@@ -158,17 +158,17 @@
           </li> --}}
           
           <li>
-            <a href="{{ route('get_departments') }}">
+            <a href="{{ route('get_departments') }}" class="{{ ($active === "department" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Department</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('get_divisions') }}">
+            <a href="{{ route('get_divisions') }}" class="{{ ($active === "division" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Division</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('get_users') }}" class="">
+            <a href="{{ route('get_users') }}" class="{{ ($active === "user" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
@@ -176,23 +176,23 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Ranking</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }} " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('criterias') }}">
+            <a href="{{ route('criterias') }}" class="{{ ($active === "criteria" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Criteria</span>
             </a>
           </li>
           
           <li>
-            <a href="{{ route('scoring') }}">
+            <a href="{{ route('scoring') }}" class="{{ ($active === "scoring" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Scoring</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('normalize') }}">
+            <a href="{{ route('normalize') }}" class="{{ ($active === "ranking" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Ranking</span>
             </a>
           </li>

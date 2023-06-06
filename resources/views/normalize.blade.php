@@ -1,4 +1,6 @@
-@extends('layout_Dashboard.layoutDashboard')
+@extends('layout_Dashboard.layoutDashboard',[
+'active' => 'ranking',
+])
 @section('main')
 <main id="main" class="main">
     <div class="pagetitle">
