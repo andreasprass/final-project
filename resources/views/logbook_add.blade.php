@@ -20,19 +20,26 @@
     <section class="section">
  
         <div class="card">
-            <div class="card-body ">
+            <div class="card-body">
                 <h5 class="card-title">{{ Auth::user()->name }}'s Logbook</h5>
-                <form action="{{ route('logbook_add') }}" method="post">
-                    @csrf
-                    <!-- Quill Editor Default -->
-                    <div id="editor"></div>
-                    <!-- End Quill Editor Default -->
-                    <input name="logbook" type="hidden"></input>
-                    <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
-                    <div>
-                        <button type="submit" onclick="submitQuill()" class="btn btn-primary mt-3 float-end">Submit Logbook</button>
+                <div class="row mb-3">
+                    <label for="inputDate" class="col-sm-1 col-form-label">Date</label>
+                    <div class="col-sm-2">
+                      <input type="date" name="inputDate" class="form-control">
                     </div>
-                </form>
+                </div>
+
+                    <form action="{{ route('logbook_add') }}"   method="post">
+                        @csrf
+                        <!-- Quill Editor Default -->
+                        <div id="editor"></div>
+                        <!-- End Quill Editor Default -->
+                        <input name="logbook" type="hidden"></input>
+                        <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
+                        <div>
+                            <button type="submit" onclick="submitQuill()" class="btn btn-primary mt-3 float-end">Submit Logbook</button>
+                        </div>
+                    </form>
             </div>
         </div>
         

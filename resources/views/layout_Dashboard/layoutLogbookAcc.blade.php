@@ -297,24 +297,26 @@
           <i class="bi bi-menu-button-wide"></i><span>Employee Management</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ route('get_users') }}" class="">
-              <i class="bi bi-circle"></i><span>Users</span>
-            </a>
-          </li>
+          
           {{-- <li>
             <a href="{{ route('get_positions') }}">
               <i class="bi bi-circle"></i><span>Position</span>
             </a>
           </li> --}}
+          
+          <li>
+            <a href="{{ route('get_departments') }}">
+              <i class="bi bi-circle"></i><span>Department</span>
+            </a>
+          </li>
           <li>
             <a href="{{ route('get_divisions') }}">
               <i class="bi bi-circle"></i><span>Division</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('get_departments') }}">
-              <i class="bi bi-circle"></i><span>Department</span>
+            <a href="{{ route('get_users') }}" class="">
+              <i class="bi bi-circle"></i><span>Users</span>
             </a>
           </li>
         </ul>
@@ -348,14 +350,14 @@
         </ul>
       </li><!-- End Forms Nav -->
 
-      <li class="nav-heading">Features</li>
+      {{-- <li class="nav-heading">Features</li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('get_logbook') }}" >
           <i class="bi bi-book"></i>
           <span>Logbook</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li><!-- End Profile Page Nav --> --}}
 
     </ul>
 
@@ -375,7 +377,8 @@
       <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
       Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div> --}}
-  </footer><!-- End Footer -->
+  </footer>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
