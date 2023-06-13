@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class Dashboard extends Controller
 {
     public function index(){
-        return view('index',['count' => User::count() ]);
+        return view('index',['count' => User::get()->where('status', 1)->count() ]);
     }
 
     public function profile(){
