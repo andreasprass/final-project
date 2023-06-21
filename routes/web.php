@@ -79,11 +79,11 @@ Route::put('/update-logbook',[LogbookController::class, 'update'])->name('logboo
 Route::get('/delete-logbook',[LogbookController::class, 'get_destroy'])->name('get_logbook_update')->middleware('auth');
 Route::delete('/delete-logbook/{id}',[LogbookController::class, 'destroy'])->name('logbook_delete')->middleware('auth');
 
-
 Route::get('/criterias',[CriteriaController::class, 'index'])->name('criterias')->middleware('auth');
 Route::get('/add-criterias',[CriteriaController::class, 'create'])->name('get_criteria_add')->middleware('auth');
 Route::post('/add-criterias',[CriteriaController::class, 'store'])->name('criteria_add')->middleware('auth');
 
+//Scoring
 Route::get('/scoring',[ScoringController::class, 'index'])->name('scoring')->middleware('auth');
 Route::get('/add-scoring',[ScoringController::class, 'create'])->name('get_scoring_add')->middleware('auth');
 Route::post('/add-scoring',[ScoringController::class, 'store'])->name('scoring_add')->middleware('auth');
@@ -91,6 +91,17 @@ Route::get('/update_scoring/{id}',[ScoringController::class, 'get_update_scoring
 Route::put('/update-scoring',[ScoringController::class, 'update'])->name('scoring_update')->middleware('auth');
 Route::delete('/delete_scoring/{id}',[ScoringController::class, 'delete_scoring'])->name('scoring_delete')->middleware('auth');
 
+Route::get('/penilaian',[ScoringController::class, 'get_rekap'])->name('get_rekap')->middleware('auth');
+Route::get('/tambah-penilaian',[ScoringController::class, 'get_add_rekap'])->name('get_add_rekap')->middleware('auth');
+Route::post('/tambah-penilaian',[ScoringController::class, 'add_rekap'])->name('add_rekap')->middleware('auth');
+Route::get('/detail-penilaian/{id}',[ScoringController::class, 'get_detail_penilaian'])->name('get_detail_penilaian')->middleware('auth');
+Route::get('/tambah-penilaian/{id}',[ScoringController::class, 'get_add_penilaian'])->name('get_add_penilaian')->middleware('auth');
+Route::post('/simpan-kandidat/{id}',[ScoringController::class, 'add_kandidat'])->name('add_kandidat')->middleware('auth');
+
+
 //Normalisasi
 Route::get('/normalize',[NormalizeController::class, 'index'])->name('normalize')->middleware('auth');
+
+//Penilaian
+// Route::get('/penilaian',[PenilaianController::class, 'index'])->name('criterias')->middleware('auth');
 

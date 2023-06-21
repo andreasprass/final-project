@@ -49,7 +49,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $crit->criteria }}</td>
-                                <td>{{ ucfirst($crit->min_max) }}</td>
+                                <td>{{ ucfirst($crit->minMax) }}</td>
                                 <td>{{ $crit->weight }}</td>
                                 <td>
                                     <a href="" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>

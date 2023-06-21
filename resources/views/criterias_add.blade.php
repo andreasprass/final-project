@@ -30,9 +30,9 @@
                         <div class="col-sm-10"><input type="text" class="form-control" id="criteria" name="criteria" /></div>
                     </div>
                     <div class="row mb-3">
-                        <label for="min_max" class="col-sm-2 col-form-label">Min / Max</label>
+                        <label for="minMax" class="col-sm-2 col-form-label">Min / Max</label>
                         <div class="col-sm-10">
-                            <select class="form-select" aria-label="Default select example" id="min_max" name="min_max">
+                            <select class="form-select" aria-label="Default select example" id="minMax" name="minMax">
                                 <option selected>Choose Min/Max...</option>
                                 <option value="min">Min</option>
                                 <option value="max">Max</option>

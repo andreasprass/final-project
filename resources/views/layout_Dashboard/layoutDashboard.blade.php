@@ -18,13 +18,13 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
@@ -38,6 +38,8 @@
   {{-- Jquery --}}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+  
+
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -46,7 +48,7 @@
   ======================================================== -->
 </head>
 
-<body onload="showDataToEditor()">
+<body>
 
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
@@ -72,14 +74,18 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ Auth::user()->name }}</h6>
+              @if(Auth::user()->div_id)
               <span>{{ Auth::user()->division->div_name }}</span>
+              @else
+              <span> - </span>
+              @endif
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -176,6 +182,13 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
+        <a class="nav-link {{ ($active === "penilaian") ? '' : 'collapsed' }}" href="{{ route('get_rekap') }}">
+          <i class="bi bi-journal-check"></i>
+          <span>Penilaian</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
         <a class="nav-link {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Ranking</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -231,13 +244,13 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.min.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/quill/quill.min.js')}}"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
   <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
@@ -245,16 +258,40 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
 
-  
-  <!-- Initialize Quill editor -->
-  {{-- <script>
-    var quill = new Quill('#editor', {
-      theme: 'snow'
-    });
+  {{-- <script type="text/javascript">
+    $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('#tambahKandidatForm').on('submit', function(e){
+              e.preventDefault();
+                var formData = $(this).serialize();
+                var url = "{{ url('simpan-kandidat') }}/{{ $rekap->id }}";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response){
+                        $('#tambahKandidatModal').css('display', 'none');
+                        $('#detail_rekap').dataTable().ajax.reload();
+                        
+                    },
+                    error: function(error){
+                      $('#tambahKandidatModal').css('display', 'none'); 
+                      $('.modal-backdrop').css('display', 'none'); 
+                      $('#detail_rekap').DataTable().ajax.reload();
+                        console.log(error);
+                    }
+                });
+          });
+      });
   </script> --}}
-
-  <script>
+  <script type="text/javascript">
     $(function () {
+
         $("#users_table").DataTable({
 
         });
@@ -265,36 +302,39 @@
 
         });
         $("#scoring_table").DataTable({
-
+          
+        });
+        $("#detail_rekap").DataTable({
+            
         });
     });
 
-    var quill = new Quill('#editor', {
-      modules: {
-        toolbar: [
-          ['bold', 'italic'],
-          ['link', 'blockquote', 'code-block'],
-          [{ list: 'ordered' }, { list: 'bullet' }]
-        ]
-      },
-      placeholder: 'Write your logbook here...  ',
-      theme: 'snow'
-    });
+    // var quill = new Quill('#editor', {
+    //   modules: {
+    //     toolbar: [
+    //       ['bold', 'italic'],
+    //       ['link', 'blockquote', 'code-block'],
+    //       [{ list: 'ordered' }, { list: 'bullet' }]
+    //     ]
+    //   },
+    //   placeholder: 'Write your logbook here...  ',
+    //   theme: 'snow'
+    // });
 
-    function submitQuill(){
-      var qhtml = document.querySelector('input[name=logbook]');
-      qhtml.value = JSON.stringify(quill.getContents());
-    }
+    // function submitQuill(){
+    //   var qhtml = document.querySelector('input[name=logbook]');
+    //   qhtml.value = JSON.stringify(quill.getContents());
+    // }
     
-    function showDataToEditor(){
-      var qhtml = document.querySelector('input[name=logbook]');
-      var data = JSON.parse(qhtml.value);
-      quill.setContents(data);
-    }
+    // function showDataToEditor(){
+    //   var qhtml = document.querySelector('input[name=logbook]');
+    //   var data = JSON.parse(qhtml.value);
+    //   quill.setContents(data);
+    // }
   </script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{ asset('assets/js/main.js') }}"></script>
 
 </body>
 

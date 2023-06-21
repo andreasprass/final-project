@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('scorings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->integer('score');
-            $table->foreignId('criteria_id');
+            $table->foreignId('user_id')->nullable();
+            $table->integer('score')->default('0');
+            $table->foreignId('criteria_id')->nullable();
+            $table->foreignId('id_rekap');
             $table->timestamps();
         });
     }

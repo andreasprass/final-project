@@ -5,22 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Scoring extends Model
+class Rekap extends Model
 {
     use HasFactory;
 
-    protected $table = 'scorings';
+    protected $fillable = [
+        'id',
+        'nama_rekap',
 
-    public function users(){
-        return $this->belongsTo(User::class,'user_id','id');
-    }
-    public function criteria(){
-        return $this->belongsTo(Criteria::class,'criteria_id','id');
-    }
-    public function rekap(){
-        return $this->belongsTo(Rekap::class,'id_rekap','id');
-    }
-    
+    ];
 
     protected $guarded = [];
 

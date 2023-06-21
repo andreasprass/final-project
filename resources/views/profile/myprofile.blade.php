@@ -1,4 +1,6 @@
-@extends('layout_Dashboard.layoutDashboard') 
+@extends('layout_Dashboard.layoutDashboard',[
+    'active' => '',
+]) 
 @section('main')
 
 <main id="main" class="main">
@@ -27,7 +29,11 @@
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                         <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle" />
                         <h2>{{ Auth::user()->name }}</h2>
-                        <h3>{{ Auth::user()->division->div_name }}</h3>
+                        @if(Auth::user()->div_id)
+                            <h3>{{ Auth::user()->division->div_name }}</h3>
+                        @else
+                            <span> - </span>
+                        @endif
                         <div class="social-links mt-2">
                             <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                             <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -81,7 +87,11 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Job</div>
-                                    <div class="col-lg-9 col-md-8">{{ Auth::user()->division->div_name }}</div>
+                                    @if(Auth::user()->div_id)
+                                        <div class="col-lg-9 col-md-8">{{ Auth::user()->division->div_name }}</div>
+                                    @else
+                                    <div class="col-lg-9 col-md-8">-</div>
+                                    @endif
                                 </div>
 
                                 {{-- <div class="row">
@@ -145,7 +155,12 @@
                                     <div class="row mb-3">
                                         <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="job" type="text" class="form-control" id="Job" value="{{ Auth::user()->division->div_name }}" />
+                                            @if(Auth::user()->div_id)
+                                                <input name="job" type="text" class="form-control" id="Job" value="{{ Auth::user()->division->div_name }}" />
+                                            @else
+                                                <input name="job" type="text" class="form-control" id="Job" value="" />
+                                            @endif
+                                            
                                         </div>
                                     </div>
 

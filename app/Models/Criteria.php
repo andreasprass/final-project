@@ -11,7 +11,7 @@ class Criteria extends Model
 
     protected $fillable = [
         'criteria',
-        'min_max',
+        'minMax',
         'weight'
     ];
 
