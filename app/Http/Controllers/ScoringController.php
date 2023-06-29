@@ -7,6 +7,8 @@ use App\Models\Rekap;
 use App\Models\Scoring;
 use App\Models\Criteria;
 use Illuminate\Http\Request;
+use App\Models\KandidatPenilaian;
+use App\Models\KriteriaPenilaian;
 
 class ScoringController extends Controller
 {
@@ -96,6 +98,8 @@ class ScoringController extends Controller
     }
 
 
+
+    //New
     public function get_rekap(){
         return view('penilaian',[
             'rekapitulasi' => Rekap::all(),
@@ -115,32 +119,81 @@ class ScoringController extends Controller
 
     public function get_detail_penilaian($id){
         $dataRekap = Rekap::find($id);
-        $score_id = Scoring::where('id_rekap',$id)->get('id');
-        $dataKandidat = User::whereNotIn('id',$score_id)->get(); //
-        $dataKriteria = Criteria::whereNotIn('id',$score_id)->get();
-        $dataNilai = Scoring::where('id_rekap', $id)->get();
-        $dataKriteriaPenilaian = Scoring::where('id_rekap', $id)->groupBy('criteria_id')->get('criteria_id');
-        return view('penilaian_detail',[
-            'detail' => $dataNilai,
+        $daftarKriteria = KriteriaPenilaian::where('id_rekap',$id)->get();
+
+        $cekScoringUser = Scoring::where('id_rekap',$id)->get('kandidat_penilaian');
+        $cekScoringCriteria = KriteriaPenilaian::where('id_rekap',$id)->get('criteria_id');
+
+        //whereNotIn
+        $dataKandidat = User::whereNotIn('id',$cekScoringUser)->get(); 
+        $dataKriteria = Criteria::whereNotIn('id',$cekScoringCriteria)->get(); 
+
+        //data semua nilai
+        $dataNilai = Scoring::where('id_rekap', $id)->get(); 
+        
+        //whereIn
+        $daftarKandidat = KandidatPenilaian::whereIn('id', $cekScoringUser)->get();
+        
+
+        return view('penilaian_detail',[  
             'rekap' => $dataRekap,
-            'kandidat' => $dataKandidat,
-            'kriteria' => $dataKriteria,
-            'kriteriaPenilaian' => $dataKriteriaPenilaian,
+
+            'tambahKandidat' => $dataKandidat,
+            'tambahKriteria' => $dataKriteria,
+
+            'daftarKriteria' => $daftarKriteria,
+            'daftarKandidat' => $daftarKandidat,
+            'nilai' => $dataNilai,
         ]);
+    }
+
+    public function add_kriteria(Request $request, $id){
+        $data = $request->all();
+        $id_rekap = $id;
+        $cekScoring = Scoring::where('id_rekap',$id)->get();
+        $dataSave = [
+            'criteria_id' => $data['criteria_id'],
+            'id_rekap' => $id_rekap,
+        ];
+        KriteriaPenilaian::create($dataSave);
+  
+        return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
+   
     }
 
     public function add_kandidat(Request $request, $id){
         $data = $request->all();
-        $rekap_id = $id;
-        $kandidat = User::get('id');
-        $kriteria = Criteria::get('id');
-        // if($data->kandidat == ){
+        $id_rekap = $id;
+        $a = KriteriaPenilaian::where('id_rekap', $id_rekap)->get();
+        $kriteria = Criteria::get();
 
-        // }elseif(''){
-
+        if(empty($kriteria) == true){
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('fail', 'Buat Kriteria Pada Halaman Kriteria');
+        }elseif (empty($a) == true) {
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('fail', 'Pilih Kriteria');
+        }else{
+            $simpanKandidat = [
+                'user_id' => $data['user_id'],
+                'id_rekap' => $id_rekap,
+            ];
+            KandidatPenilaian::create($simpanKandidat);
+            $ambil = KandidatPenilaian::where('user_id',$data['user_id'])->get('id');
+            dd($ambil);
+        }
+        //     for ($i = 0; $i < count($a); $i++) {
+                
+        //         $simpanPenilaian = [
+        //             'kandidat_penilaian' =>$ambil,
+        //             'kriteria_penilaian' => $a[$i]->id,
+        //             'id_rekap' => $id_rekap,
+        //         ]; 
+        //         Scoring::create($simpanPenilaian);
+        //     }
+        //     return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
         // }
-
+   
     }
+
     
 
 }

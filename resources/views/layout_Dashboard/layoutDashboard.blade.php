@@ -304,7 +304,10 @@
         $("#scoring_table").DataTable({
           
         });
-        $("#detail_rekap").DataTable({
+        $("table#ranking").DataTable({
+            
+        });
+        $(".ranking").DataTable({
             
         });
     });

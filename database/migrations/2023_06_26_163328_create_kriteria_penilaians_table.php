@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('scorings', function (Blueprint $table) {
+        Schema::create('kriteria_penilaians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kandidat_penilaian')->nullable();
-            $table->integer('nilai')->default('0');
-            $table->foreignId('kriteria_penilaian')->nullable();
+            $table->foreignId('criteria_id');
             $table->foreignId('id_rekap');
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scorings');
+        Schema::dropIfExists('kriteria_penilaians');
     }
 };

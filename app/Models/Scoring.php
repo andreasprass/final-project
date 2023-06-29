@@ -21,6 +21,13 @@ class Scoring extends Model
         return $this->belongsTo(Rekap::class,'id_rekap','id');
     }
     
+    protected $fillable = [
+        'id',
+        'kandidat_penilaian',
+        'kriteria_penilaian',
+        'id_rekap',
+
+    ];
 
     protected $guarded = [];
 

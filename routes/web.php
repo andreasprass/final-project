@@ -95,8 +95,9 @@ Route::get('/penilaian',[ScoringController::class, 'get_rekap'])->name('get_reka
 Route::get('/tambah-penilaian',[ScoringController::class, 'get_add_rekap'])->name('get_add_rekap')->middleware('auth');
 Route::post('/tambah-penilaian',[ScoringController::class, 'add_rekap'])->name('add_rekap')->middleware('auth');
 Route::get('/detail-penilaian/{id}',[ScoringController::class, 'get_detail_penilaian'])->name('get_detail_penilaian')->middleware('auth');
-Route::get('/tambah-penilaian/{id}',[ScoringController::class, 'get_add_penilaian'])->name('get_add_penilaian')->middleware('auth');
+// Route::get('/tambah-penilaian/{id}',[ScoringController::class, 'get_add_penilaian'])->name('get_add_penilaian')->middleware('auth');
 Route::post('/simpan-kandidat/{id}',[ScoringController::class, 'add_kandidat'])->name('add_kandidat')->middleware('auth');
+Route::post('/simpan-kriteria/{id}',[ScoringController::class, 'add_kriteria'])->name('add_kriteria')->middleware('auth');
 
 
 //Normalisasi

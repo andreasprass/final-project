@@ -40,12 +40,12 @@
                     </div>
                 </div>
                 <div class="">
-                    <table class="table  stripe table-responsive" style="width:100%;" id="{{ $rekap->id }}">
+                    <table class="table ranking stripe table-responsive" style="width:100%;" id="{{ $rekap->id }}">
                         <thead>
                             <tr>
-                                <td>Rangking</td>
-                                <td>Nama</td>
-                                <td>Nilai Total</td>
+                                <th>Rangking</th>
+                                <th>Nama</th>
+                                <th>Nilai Total</th>
                             </tr>
                         </thead>
                         <tbody>
