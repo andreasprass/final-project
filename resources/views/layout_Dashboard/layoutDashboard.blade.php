@@ -182,31 +182,21 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ ($active === "penilaian") ? '' : 'collapsed' }}" href="{{ route('get_rekap') }}">
-          <i class="bi bi-journal-check"></i>
-          <span>Penilaian</span>
-        </a>
+        
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+        {{-- <a class="nav-link {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }}" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Ranking</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a> --}}
+        <a class="nav-link {{ ($active === "penilaian" || $active === "criteria") ? '' : 'collapsed' }}"  href="{{ route('get_rekap') }}">
+          <i class="bi bi-journal-check"></i>
+          <span>Penilaian</span>
         </a>
-        <ul id="forms-nav" class="nav-content {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }} " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }} ">
           <li>
             <a href="{{ route('criterias') }}" class="{{ ($active === "criteria" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Criteria</span>
-            </a>
-          </li>
-          
-          <li>
-            <a href="{{ route('scoring') }}" class="{{ ($active === "scoring" ) ? 'active' : '' }}">
-              <i class="bi bi-circle"></i><span>Scoring</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('normalize') }}" class="{{ ($active === "ranking" ) ? 'active' : '' }}">
-              <i class="bi bi-circle"></i><span>Ranking</span>
             </a>
           </li>
         </ul>

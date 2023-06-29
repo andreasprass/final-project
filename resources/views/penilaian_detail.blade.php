@@ -49,7 +49,14 @@
                             <tr>
                                 <th>Name</th>
                                 @foreach($daftarKriteria as $dkrit)
-                                <th>{{ $dkrit->kriterias->criteria }}</th>
+                                <th>
+                                    {{ $dkrit->kriterias->criteria }}   
+                                    <form action="{{ route('delete_kriteria_penilaian',['id' => $dkrit->id, 'id_rekap'=>$rekap->id]) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-danger" onclick="return confirm('Menghapus Kriteria {{ $dkrit->kriterias->criteria }} Akan Menghapus Nilai Kriteria {{ $dkrit->kriterias->criteria }} Pada Kandidat?')"><span><i class="bi bi-trash"></i></span></button>
+                                    </form>
+                                </th>
                                 @endforeach
                                 <th>Aksi</th>
                             </tr>
@@ -57,7 +64,7 @@
                         <tbody>
                             @foreach($daftarKandidat as $dkand)
                             <tr>
-                                <td>{{ $dkand->name }}</td>
+                                <td>{{ $dkand->kandidats->name }}</td>
                                 @foreach($daftarKriteria as $dkrit)
                                 <td>
                                     @foreach($nilai as $nil)
@@ -68,11 +75,11 @@
                                 </td>
                                 @endforeach
                                 <td>
-                                    <a href="update_penilaian/{{ $dkand->id }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
-                                    <form action="delete_penilaian/{{ $dkand->id }}" method="post" class="d-inline">
+                                    <a href="{{ route('update_kandidat_penilaian', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
+                                    <form action="{{ route('delete_kandidat_penilaian', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span><i class="bi bi-trash"></i></span></button>
+                                        <button class="btn btn-danger" onclick="return confirm('Menghapus Kandidat {{ $dkand->kandidats->name }} Akan Menghapus Seluruh Nilai Pada Kandidat?')"><span><i class="bi bi-trash"></i></span></button>
                                     </form>
                                 </td>
                             </tr>
@@ -99,7 +106,7 @@
                         <tbody>
                             @foreach($daftarKandidat as $dkand)
                             <tr>
-                                <td>{{ $dkand->name }}</td>
+                                <td>{{ $dkand->kandidats->name }}</td>
                                 @foreach($daftarKriteria as $dkrit)
                                 <td>
                                     @foreach($nilai as $nil)
@@ -137,7 +144,7 @@
                             @foreach($daftarKandidat as $dkand)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $dkand->name }}</td>
+                                <td>{{ $dkand->kandidats->name }}</td>
                                 <td>1000</td>
                                 @foreach($daftarKriteria as $dkrit)
                                 <td>

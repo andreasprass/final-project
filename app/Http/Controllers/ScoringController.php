@@ -12,90 +12,90 @@ use App\Models\KriteriaPenilaian;
 
 class ScoringController extends Controller
 {
-    public function index(){
+    // public function index(){
 
-        $scores = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
-        $users = User::all();
-        $criteria = Criteria::all();
+    //     $scores = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
+    //     $users = User::all();
+    //     $criteria = Criteria::all();
 
-        // dd($rows);
-        return view('scoring',[
-            'users' => $users,
-            'criteria' => $criteria,
-            'scores' => $scores,    
-        ]);
-    }
+    //     // dd($rows);
+    //     return view('scoring',[
+    //         'users' => $users,
+    //         'criteria' => $criteria,
+    //         'scores' => $scores,    
+    //     ]);
+    // }
 
-    public function create(){
-        return view('scoring_add',[
-            'criterias' => Criteria::all(),
-            'users' => User::all(),
-            'scorings' => Scoring::all(),
-        ]);
-    }
+    // public function create(){
+    //     return view('scoring_add',[
+    //         'criterias' => Criteria::all(),
+    //         'users' => User::all(),
+    //         'scorings' => Scoring::all(),
+    //     ]);
+    // }
 
-    public function store(Request $request){
-        $user_id = $request->user_id;
-        $score = $request->score;
-        $criteria_id = $request->criteria_id;
+    // public function store(Request $request){
+    //     $user_id = $request->user_id;
+    //     $score = $request->score;
+    //     $criteria_id = $request->criteria_id;
 
-        for($i=0;$i<count($score);$i++){
-            $user_id_increment[] = implode($user_id);
-        }
+    //     for($i=0;$i<count($score);$i++){
+    //         $user_id_increment[] = implode($user_id);
+    //     }
         
-        for($i=0;$i<count($score);$i++){
+    //     for($i=0;$i<count($score);$i++){
 
-            $datasave = [
-                'user_id' => $user_id_increment[$i],
-                'score' => $score[$i],
-                'criteria_id' => $criteria_id[$i],
-            ];
-            // dd($score);
-            Scoring::create($datasave);
-        }
-        return redirect()->route('scoring')->with('success', 'The data has been updated');
-    }
+    //         $datasave = [
+    //             'user_id' => $user_id_increment[$i],
+    //             'score' => $score[$i],
+    //             'criteria_id' => $criteria_id[$i],
+    //         ];
+    //         // dd($score);
+    //         Scoring::create($datasave);
+    //     }
+    //     return redirect()->route('scoring')->with('success', 'The data has been updated');
+    // }
 
-    public function get_update_scoring($id){
-        // $criteria = Criteria::all();
-        $data = Scoring::where('user_id', $id)->get();
-        $data_id = $data->first();
+    // public function get_update_scoring($id){
+    //     // $criteria = Criteria::all();
+    //     $data = Scoring::where('user_id', $id)->get();
+    //     $data_id = $data->first();
         
-        // dd($data_id->criteria->criteria);
-        return view('scoring_edit', [
-            'update' => $data,
-            'data_id' => $data_id,
-            // 'criterias' => $criteria,
-        ]);
+    //     // dd($data_id->criteria->criteria);
+    //     return view('scoring_edit', [
+    //         'update' => $data,
+    //         'data_id' => $data_id,
+    //         // 'criterias' => $criteria,
+    //     ]);
         
-    }
+    // }
  
-    public function update(Request $req){
-        $id = $req->id;
-        $criteria_id = $req->criteria_id;
-        $user_id = $req->user_id;
-        $score = $req->score;
+    // public function update(Request $req){
+    //     $id = $req->id;
+    //     $criteria_id = $req->criteria_id;
+    //     $user_id = $req->user_id;
+    //     $score = $req->score;
 
-        for($i=0;$i<count($id);$i++){
+    //     for($i=0;$i<count($id);$i++){
 
-            $datasave = [
-                'score' => $score[$i],
-            ];
+    //         $datasave = [
+    //             'score' => $score[$i],
+    //         ];
 
-            Scoring::where('id', $id[$i])
-            ->where('criteria_id',$criteria_id[$i])
-            ->update($datasave);
-        }
-        return redirect()->route('scoring')->with('success', "The data has been updated");
-    }
+    //         Scoring::where('id', $id[$i])
+    //         ->where('criteria_id',$criteria_id[$i])
+    //         ->update($datasave);
+    //     }
+    //     return redirect()->route('scoring')->with('success', "The data has been updated");
+    // }
 
-    public function delete_scoring($id){
-        // $data = Scoring::where('user_id', $id)->get();
-        // for($i=0;$i<count($data);$i++){
-            Scoring::where('user_id', $id)->delete();
-        // }
-        return redirect()->route('scoring')->with('success', 'The data has been deleted');
-    }
+    // public function delete_scoring($id){
+    //     // $data = Scoring::where('user_id', $id)->get();
+    //     // for($i=0;$i<count($data);$i++){
+    //         Scoring::where('user_id', $id)->delete();
+    //     // }
+    //     return redirect()->route('scoring')->with('success', 'The data has been deleted');
+    // }
 
 
 
@@ -119,9 +119,9 @@ class ScoringController extends Controller
 
     public function get_detail_penilaian($id){
         $dataRekap = Rekap::find($id);
-        $daftarKriteria = KriteriaPenilaian::where('id_rekap',$id)->get();
+        
 
-        $cekScoringUser = Scoring::where('id_rekap',$id)->get('kandidat_penilaian');
+        $cekScoringUser = KandidatPenilaian::where('id_rekap',$id)->get('user_id');
         $cekScoringCriteria = KriteriaPenilaian::where('id_rekap',$id)->get('criteria_id');
 
         //whereNotIn
@@ -132,7 +132,8 @@ class ScoringController extends Controller
         $dataNilai = Scoring::where('id_rekap', $id)->get(); 
         
         //whereIn
-        $daftarKandidat = KandidatPenilaian::whereIn('id', $cekScoringUser)->get();
+        $daftarKandidat = KandidatPenilaian::where('id_rekap',$id)->get();
+        $daftarKriteria = KriteriaPenilaian::where('id_rekap',$id)->get();
         
 
         return view('penilaian_detail',[  
@@ -150,15 +151,41 @@ class ScoringController extends Controller
     public function add_kriteria(Request $request, $id){
         $data = $request->all();
         $id_rekap = $id;
-        $cekScoring = Scoring::where('id_rekap',$id)->get();
-        $dataSave = [
-            'criteria_id' => $data['criteria_id'],
-            'id_rekap' => $id_rekap,
-        ];
-        KriteriaPenilaian::create($dataSave);
-  
-        return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
-   
+        $a = KandidatPenilaian::where('id_rekap',$id_rekap)->get();
+        $user = User::get();
+
+        if(count($user) == 0){
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('fail', 'Daftar Atau Buat User Baru');
+        }elseif(count($a) > 0){
+            $simpanKriterita = [
+                'criteria_id' => $data['criteria_id'],
+                'id_rekap' => $id_rekap,
+            ];
+            KriteriaPenilaian::create($simpanKriterita);
+            $ambil = KriteriaPenilaian::where('criteria_id', $data['criteria_id'])->where('id_rekap',$id_rekap)->first('id');
+            for ($i = 0; $i < count($a); $i++) {
+                $simpanPenilaian = [
+                    'kandidat_penilaian' => $a[$i]->id,
+                    'kriteria_penilaian' => $ambil->id,
+                    'id_rekap' => $id_rekap,
+                ];
+                Scoring::create($simpanPenilaian);
+            }
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
+        }else{
+            $simpanKriterita = [
+                'criteria_id' => $data['criteria_id'],
+                'id_rekap' => $id_rekap,
+            ];
+            KriteriaPenilaian::create($simpanKriterita);
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
+        }
+    }
+
+    public function delete_kriteria_penilaian($id, $id_rekap){
+        Scoring::where('kriteria_penilaian',$id)->delete();
+        KriteriaPenilaian::where('id',$id)->delete();
+        return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Kriteria Telah Dihapus');
     }
 
     public function add_kandidat(Request $request, $id){
@@ -167,34 +194,47 @@ class ScoringController extends Controller
         $a = KriteriaPenilaian::where('id_rekap', $id_rekap)->get();
         $kriteria = Criteria::get();
 
-        if(empty($kriteria) == true){
+        if(count($kriteria) == 0){
             return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('fail', 'Buat Kriteria Pada Halaman Kriteria');
-        }elseif (empty($a) == true) {
-            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('fail', 'Pilih Kriteria');
+        }elseif (count($a) > 0) { 
+            // return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('fail', 'Pilih Kriteria');
+            $simpanKandidat = [
+                'user_id' => $data['user_id'],
+                'id_rekap' => $id_rekap,
+            ];
+            KandidatPenilaian::create($simpanKandidat);
+
+            $ambil = KandidatPenilaian::where('user_id',$data['user_id'])->where('id_rekap',$id_rekap)->first('id');
+            for ($i = 0; $i < count($a); $i++) {
+            
+                $simpanPenilaian = [
+                    'kandidat_penilaian' => $ambil->id,
+                    'kriteria_penilaian' => $a[$i]->id,
+                    'id_rekap' => $id_rekap,
+                ]; 
+                Scoring::create($simpanPenilaian);
+            }
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
         }else{
             $simpanKandidat = [
                 'user_id' => $data['user_id'],
                 'id_rekap' => $id_rekap,
             ];
             KandidatPenilaian::create($simpanKandidat);
-            $ambil = KandidatPenilaian::where('user_id',$data['user_id'])->get('id');
-            dd($ambil);
+            return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
         }
-        //     for ($i = 0; $i < count($a); $i++) {
-                
-        //         $simpanPenilaian = [
-        //             'kandidat_penilaian' =>$ambil,
-        //             'kriteria_penilaian' => $a[$i]->id,
-        //             'id_rekap' => $id_rekap,
-        //         ]; 
-        //         Scoring::create($simpanPenilaian);
-        //     }
-        //     return redirect()->route('get_detail_penilaian',['id'=> request()->route('id')])->with('success', 'Data Telah Ditambahkan');
-        // }
-   
     }
 
-    
+    public function delete_kandidat_penilaian($id, $id_rekap) {
+        Scoring::where('kandidat_penilaian',$id)->delete();
+        KandidatPenilaian::where('id',$id)->delete();
+        return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Kandidat Telah Dihapus');
+    }
 
+    public function edit_nilai(){
+
+    }
+   
 }
+
 
