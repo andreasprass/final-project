@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\KandidatPenilaian;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Scoring extends Model
 {
@@ -13,6 +14,12 @@ class Scoring extends Model
 
     public function users(){
         return $this->belongsTo(User::class,'user_id','id');
+    }
+    public function kandidatPenilaian(){
+        return $this->belongsTo(KandidatPenilaian::class,'kandidat_penilaian','id');
+    }
+    public function kriteriaPenilaian(){
+        return $this->belongsTo(KriteriaPenilaian::class,'kriteria_penilaian','id');
     }
     public function criteria(){
         return $this->belongsTo(Criteria::class,'criteria_id','id');

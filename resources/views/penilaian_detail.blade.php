@@ -75,7 +75,8 @@
                                 </td>
                                 @endforeach
                                 <td>
-                                    <a href="{{ route('update_kandidat_penilaian', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
+                                    <a href="{{ route('get_isi_nilai', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" class="btn btn-primary"><span> <i class="bi bi-pencil"></i></span></a>
+                                    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahNilaiModal" id="" name=""><span> <i class="bi bi-pencil"></i></span></button> --}}
                                     <form action="{{ route('delete_kandidat_penilaian', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
@@ -168,7 +169,7 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Form Tambah Nilai</h5>
+                  <h5 class="modal-title">Form Pilih Kandidat</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('add_kandidat',['id'=> request()->route('id')]) }}" id="tambahKandidatForm" method="POST" >
@@ -195,14 +196,14 @@
             </div>
             </div>
         </div>
-        <!-- End Nilai Modal-->
+        <!-- End Kandidat Modal-->
 
         <!-- Kriteria Modal-->
         <div class="modal fade" id="tambahKriteriaModal" tabindex="-1">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Form Tambah Kiteria</h5>
+                  <h5 class="modal-title">Form Pilih Kiteria</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('add_kriteria',['id'=> request()->route('id')]) }}" id="tambahKriteriaForm"  method="POST">
@@ -229,7 +230,46 @@
             </div>
             </div>
         </div>
+        <!-- End Kriteria Modal-->
+
+        {{-- @foreach($dataIsiNilai as $nil)
+        <!-- Nilai Modal-->
+        <div class="modal fade" id="tambahNilaiModal{{ $nil->id }}" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Form Tambah Nilai</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('isi_nilai', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" id="tambahKandidatForm" method="POST" >
+                    @csrf
+                    @method('put')
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <label for="namaKandidat" class="col-sm-2 col-form-label">Nama Kandidat</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nama_kandidat" name="nama_kandidat" value="{{ $nil }}" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="namaKandidat" class="col-sm-2 col-form-label">Nama Kriteria</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nama_kandidat" name="nama_kandidat" value />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btvn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Tambahkan</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
         <!-- End Nilai Modal-->
+        @endforeach --}}
+
     </section>
 </main>
 

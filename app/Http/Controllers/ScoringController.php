@@ -130,6 +130,7 @@ class ScoringController extends Controller
 
         //data semua nilai
         $dataNilai = Scoring::where('id_rekap', $id)->get(); 
+        $dataIsiNilai = $dataNilai->where('kandidat_penilaian');
         
         //whereIn
         $daftarKandidat = KandidatPenilaian::where('id_rekap',$id)->get();
@@ -145,7 +146,9 @@ class ScoringController extends Controller
             'daftarKriteria' => $daftarKriteria,
             'daftarKandidat' => $daftarKandidat,
             'nilai' => $dataNilai,
+            'dataIsiNilai' => $dataIsiNilai,
         ]);
+
     }
 
     public function add_kriteria(Request $request, $id){
@@ -231,8 +234,35 @@ class ScoringController extends Controller
         return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Kandidat Telah Dihapus');
     }
 
-    public function edit_nilai(){
+    public function get_isi_nilai(Request $req, $id, $id_rekap){
+        $data = Scoring::where('id_rekap',$id_rekap)->where('kandidat_penilaian', $id)->get();
+        $kandidat = KandidatPenilaian::where('id',$id)->first();
+        return view('isi_nilai',[
+           'id_rekap' => $id_rekap,
+           'kandidat' => $kandidat,
+           'data' => $data,
 
+        ]);
+    }
+
+    public function isi_nilai(Request $req, $id_rekap){
+        $kandidat = $req->all();
+        $kriteria = $req->kriteria_penilaian;
+        for($i=0;$i<count($kriteria);$i++){
+            $kriteria_data = $req->kriteria_penilaian[$i];
+            $datasave = [
+                'kandidat_penilaian' => $req->kandidat_penilaian[$i],
+                'kriteria_penilaian' => $req->kriteria_penilaian[$i],
+                'nilai' => $req->nilai[$i],
+                'id_rekap' => $id_rekap,
+                'id' => $req->id[$i],
+            ];
+
+            Scoring::where('id',$req->id[$i])->where('kandidat_penilaian',$req->kandidat_penilaian[$i])
+            ->where('kriteria_penilaian',$req->kriteria_penilaian[$i])
+            ->where('id_rekap',$id_rekap)->update($datasave);
+        }
+        return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Nilai Telah Diupdate');
     }
    
 }

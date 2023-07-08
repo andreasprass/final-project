@@ -98,9 +98,10 @@ Route::get('/detail-penilaian/{id}',[ScoringController::class, 'get_detail_penil
 // Route::get('/tambah-penilaian/{id}',[ScoringController::class, 'get_add_penilaian'])->name('get_add_penilaian')->middleware('auth');
 Route::post('/simpan-kandidat/{id}',[ScoringController::class, 'add_kandidat'])->name('add_kandidat')->middleware('auth');
 Route::post('/simpan-kriteria/{id}',[ScoringController::class, 'add_kriteria'])->name('add_kriteria')->middleware('auth');
-Route::delete('/delete-kriteria-penilaian/{id}{id_rekap}',[ScoringController::class, 'delete_kriteria_penilaian'])->name('delete_kriteria_penilaian')->middleware('auth');
-Route::delete('/delete-kandidat-penilaian/{id}{id_rekap}',[ScoringController::class, 'delete_kandidat_penilaian'])->name('delete_kandidat_penilaian')->middleware('auth');
-Route::put('/update-kandidat-penilaian/{id}{id_rekap}',[ScoringController::class, 'update_kandidat_penilaian'])->name('update_kandidat_penilaian')->middleware('auth');
+Route::delete('/delete-kriteria-penilaian/{id}/{id_rekap}',[ScoringController::class, 'delete_kriteria_penilaian'])->name('delete_kriteria_penilaian')->middleware('auth');
+Route::delete('/delete-kandidat-penilaian/{id}/{id_rekap}',[ScoringController::class, 'delete_kandidat_penilaian'])->name('delete_kandidat_penilaian')->middleware('auth');
+Route::get('/isi-nilai/{id}/{id_rekap}',[ScoringController::class, 'get_isi_nilai'])->name('get_isi_nilai')->middleware('auth');
+Route::put('/isi-nilai/{id_rekap}',[ScoringController::class, 'isi_nilai'])->name('isi_nilai')->middleware('auth');
 
 
 //Normalisasi
