@@ -102,6 +102,7 @@ Route::delete('/delete-kriteria-penilaian/{id}/{id_rekap}',[ScoringController::c
 Route::delete('/delete-kandidat-penilaian/{id}/{id_rekap}',[ScoringController::class, 'delete_kandidat_penilaian'])->name('delete_kandidat_penilaian')->middleware('auth');
 Route::get('/isi-nilai/{id}/{id_rekap}',[ScoringController::class, 'get_isi_nilai'])->name('get_isi_nilai')->middleware('auth');
 Route::put('/isi-nilai/{id_rekap}',[ScoringController::class, 'isi_nilai'])->name('isi_nilai')->middleware('auth');
+Route::post('/hitung-nilai/{id_rekap}',[ScoringController::class, 'hitung_nilai'])->name('hitung_nilai')->middleware('auth');
 
 
 //Normalisasi

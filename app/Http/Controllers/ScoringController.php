@@ -264,6 +264,43 @@ class ScoringController extends Controller
         }
         return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Nilai Telah Diupdate');
     }
+
+    public function hitung_nilai($id_rekap){
+        $dataNilai = Scoring::where('id_rekap', $id_rekap)->get();
+        $dataKriteria = KriteriaPenilaian::all();
+        $dataKandidat = KandidatPenilaian::all();
+
+        //Step 1 Calculate the normalized values for each criteria
+        foreach($dataNilai as $row){
+            $normalizedValue = 0.01;
+
+            //Find the weight current criteria
+            $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->first()->kriterias->weight;
+
+            // Perform normalization based on the minMax attribute of the criteria
+            if($dataKriteria->where('id',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->first()->kriterias->minMax == 'max'){
+                $maxValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->max('nilai');
+                $normalizedValue = $row->nilai / $maxValue;
+            }else{
+                $minValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->min('nilai');
+                // if($minValue == 0 AND $row->nilai == 0){
+                //     $normalizedValue = 0;
+                // }else{
+                    $normalizedValue = $minValue / $row->nilai;
+                // } 
+            }
+
+            //Save the normalized value into 'normalisasi' table
+            $normalisasi = [
+                'kandidat_penilaian' => $row->kandidat_penilaian,
+                'nilai_normalisasi' => $normalizedValue,
+                'kriteria_penilaian' => $row->kriteria_penilaian,
+                'id_rekap' => $row->id_rekap,
+            ];
+        }
+
+        dd($normalizedValue);
+    }
    
 }
 

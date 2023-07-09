@@ -31,7 +31,10 @@
         <div class="">
             <button type="button" class="btn btn-info btn-sm mb-3 text-white" data-bs-toggle="modal" data-bs-target="#tambahKriteriaModal">Pilih Kriteria <span><i class="bi bi-plus-circle"></i></span></button>
             <button type="button" class="btn btn-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#tambahKandidatModal">Pilih Kandidat <span><i class="bi bi-plus-circle"></i></span></button>
-            <button type="button" class="btn btn-warning btn-sm mb-3 ">Hitung Nilai <span><i class="bi bi-calculator"></i></span></button>
+            <form action="{{ route('hitung_nilai',['id_rekap'=>$rekap->id]) }}" method="post" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-warning btn-sm mb-3">Hitung Nilai <span><i class="bi bi-calculator"></i></span></button>
+            </form> 
         </div>
         <div class="">
             <a href="{{ route('get_rekap') }}"><button type="button" class="btn btn-secondary btn-sm mb-3">Kembali</button></a>
