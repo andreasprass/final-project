@@ -4,101 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Rekap;
+use App\Models\Ranking;
 use App\Models\Scoring;
 use App\Models\Criteria;
+use App\Models\Normalisasi;
 use Illuminate\Http\Request;
 use App\Models\KandidatPenilaian;
 use App\Models\KriteriaPenilaian;
 
 class ScoringController extends Controller
 {
-    // public function index(){
-
-    //     $scores = Scoring::orderBy('user_id')->orderBy('criteria_id')->get();
-    //     $users = User::all();
-    //     $criteria = Criteria::all();
-
-    //     // dd($rows);
-    //     return view('scoring',[
-    //         'users' => $users,
-    //         'criteria' => $criteria,
-    //         'scores' => $scores,    
-    //     ]);
-    // }
-
-    // public function create(){
-    //     return view('scoring_add',[
-    //         'criterias' => Criteria::all(),
-    //         'users' => User::all(),
-    //         'scorings' => Scoring::all(),
-    //     ]);
-    // }
-
-    // public function store(Request $request){
-    //     $user_id = $request->user_id;
-    //     $score = $request->score;
-    //     $criteria_id = $request->criteria_id;
-
-    //     for($i=0;$i<count($score);$i++){
-    //         $user_id_increment[] = implode($user_id);
-    //     }
-        
-    //     for($i=0;$i<count($score);$i++){
-
-    //         $datasave = [
-    //             'user_id' => $user_id_increment[$i],
-    //             'score' => $score[$i],
-    //             'criteria_id' => $criteria_id[$i],
-    //         ];
-    //         // dd($score);
-    //         Scoring::create($datasave);
-    //     }
-    //     return redirect()->route('scoring')->with('success', 'The data has been updated');
-    // }
-
-    // public function get_update_scoring($id){
-    //     // $criteria = Criteria::all();
-    //     $data = Scoring::where('user_id', $id)->get();
-    //     $data_id = $data->first();
-        
-    //     // dd($data_id->criteria->criteria);
-    //     return view('scoring_edit', [
-    //         'update' => $data,
-    //         'data_id' => $data_id,
-    //         // 'criterias' => $criteria,
-    //     ]);
-        
-    // }
- 
-    // public function update(Request $req){
-    //     $id = $req->id;
-    //     $criteria_id = $req->criteria_id;
-    //     $user_id = $req->user_id;
-    //     $score = $req->score;
-
-    //     for($i=0;$i<count($id);$i++){
-
-    //         $datasave = [
-    //             'score' => $score[$i],
-    //         ];
-
-    //         Scoring::where('id', $id[$i])
-    //         ->where('criteria_id',$criteria_id[$i])
-    //         ->update($datasave);
-    //     }
-    //     return redirect()->route('scoring')->with('success', "The data has been updated");
-    // }
-
-    // public function delete_scoring($id){
-    //     // $data = Scoring::where('user_id', $id)->get();
-    //     // for($i=0;$i<count($data);$i++){
-    //         Scoring::where('user_id', $id)->delete();
-    //     // }
-    //     return redirect()->route('scoring')->with('success', 'The data has been deleted');
-    // }
-
-
-
     //New
     public function get_rekap(){
         return view('penilaian',[
@@ -239,7 +154,7 @@ class ScoringController extends Controller
         $kandidat = KandidatPenilaian::where('id',$id)->first();
         return view('isi_nilai',[
            'id_rekap' => $id_rekap,
-           'kandidat' => $kandidat,
+           'kandidat' => $kandidat, 
            'data' => $data,
 
         ]);
@@ -267,39 +182,94 @@ class ScoringController extends Controller
 
     public function hitung_nilai($id_rekap){
         $dataNilai = Scoring::where('id_rekap', $id_rekap)->get();
-        $dataKriteria = KriteriaPenilaian::all();
-        $dataKandidat = KandidatPenilaian::all();
+        $dataKriteria = KriteriaPenilaian::where('id_rekap',$id_rekap)->get();
+        $dataKandidat = KandidatPenilaian::where('id_rekap',$id_rekap)->get();
+        $dataRanking = Ranking::where('id_rekap',$id_rekap)->get();
 
         //Step 1 Calculate the normalized values for each criteria
         foreach($dataNilai as $row){
-            $normalizedValue = 0.01;
+            $cek = Normalisasi::where('id_rekap',$id_rekap)->where('kandidat_penilaian',$row->kandidat_penilaian)->where('kriteria_penilaian',$row->kriteria_penilaian)->exists();
+            
+            if($cek == true){
+                //Find the weight current criteria
+                $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->weight;
 
-            //Find the weight current criteria
-            $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->first()->kriterias->weight;
+                // Perform normalization based on the minMax attribute of the criteria
+                if($dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->minMax == 'max'){
+                    $maxValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->max('nilai');
+                    $normalizedValue = $row->nilai / $maxValue;
+                }else{
+                    $minValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->min('nilai');
+                    if($minValue == 0 AND $row->nilai == 0){
+                        $normalizedValue = 1 / 1;
+                    }elseif($minValue == 0){
+                        $normalizedValue = 1 / $row->nilai;
+                    }else{
+                        $normalizedValue = $minValue / $row->nilai;
+                    }
+                }
 
-            // Perform normalization based on the minMax attribute of the criteria
-            if($dataKriteria->where('id',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->first()->kriterias->minMax == 'max'){
-                $maxValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->max('nilai');
-                $normalizedValue = $row->nilai / $maxValue;
+                //Save the normalized value into 'normalisasi' table
+                $normalisasi = [
+                    'nilai_normalisasi' => $normalizedValue,
+                ];
+                Normalisasi::where('id_rekap',$id_rekap)->where('kandidat_penilaian',$row->kandidat_penilaian)->where('kriteria_penilaian',$row->kriteria_penilaian)->update($normalisasi);
+
             }else{
-                $minValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->where('id_rekap',$id_rekap)->min('nilai');
-                // if($minValue == 0 AND $row->nilai == 0){
-                //     $normalizedValue = 0;
-                // }else{
-                    $normalizedValue = $minValue / $row->nilai;
-                // } 
-            }
 
-            //Save the normalized value into 'normalisasi' table
-            $normalisasi = [
-                'kandidat_penilaian' => $row->kandidat_penilaian,
-                'nilai_normalisasi' => $normalizedValue,
-                'kriteria_penilaian' => $row->kriteria_penilaian,
-                'id_rekap' => $row->id_rekap,
-            ];
+                //Find the weight current criteria
+                $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->weight;
+
+                // Perform normalization based on the minMax attribute of the criteria
+                if($dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->minMax == 'max'){
+                    $maxValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->max('nilai');
+                    $normalizedValue = $row->nilai / $maxValue;
+                }else{
+                    $minValue = $dataNilai->where('kriteria_penilaian',$row->kriteria_penilaian)->min('nilai');
+                    if($minValue == 0 AND $row->nilai == 0){
+                        $normalizedValue = 1 / 1;
+                    }elseif($minValue == 0){
+                        $normalizedValue = 1 / $row->nilai;
+                    }else{
+                        $normalizedValue = $minValue / $row->nilai;
+                    }
+                }
+
+                //Save the normalized value into 'normalisasi' table
+                $normalisasi = [
+                    'kandidat_penilaian' => $row->kandidat_penilaian,
+                    'nilai_normalisasi' => $normalizedValue,
+                    'kriteria_penilaian' => $row->kriteria_penilaian,
+                    'id_rekap' => $row->id_rekap,
+                ];
+                Normalisasi::create($normalisasi);
+            }
+            
         }
 
-        dd($normalizedValue);
+        // //Step 2 Calculate the total score for each candidate
+        // $candidates = $dataKandidat->pluck('id')->unique();
+        // foreach($candidates as $candidate){
+
+        //     //Retrive the normalized values for the current candidate
+        //     $normalizedValue = Normalisasi::where('kandidat_penilaian',$candidate)->get();
+
+        //     //Calculate the total score by summing the weighted normalized values
+        //     foreach($normalizedValue as $normalizedValue){
+        //         $weight = $dataKriteria->where('id', $normalizedValue->kriteria_penilaian)->first()->weight;
+        //         $totalScore += $normalizedValue->nilai_normalisasi * $weight;
+        //     }
+
+        //     $ranking = [
+        //         'kandidat_penilaian' => $candidate,
+        //         'nilai_ranking' => $totalScore,
+        //         'kriteria'
+        //     ];
+        // }
+
+        // dd($candidates);
+        return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Penghitungan Selesai');
+        // }
     }
    
 }
