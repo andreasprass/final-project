@@ -113,9 +113,9 @@
                                 <td>{{ $dkand->kandidats->name }}</td>
                                 @foreach($daftarKriteria as $dkrit)
                                 <td>
-                                    @foreach($nilai as $nil)
-                                        @if ($nil->kandidat_penilaian == $dkand->id && $nil->kriteria_penilaian == $dkrit->id)
-                                            {{ $nil->nilai }}
+                                    @foreach($nilai_norm as $nil_norm)
+                                        @if ($nil_norm->kandidat_penilaian == $dkand->id && $nil_norm->kriteria_penilaian == $dkrit->id)
+                                            {{ $nil_norm->nilai_normalisasi }}
                                         @endif
                                     @endforeach
                                 </td>
@@ -138,27 +138,15 @@
                                 <th>Ranking</th>
                                 <th>Name</th>
                                 <th>Total Nilai</th>
-                                @foreach($daftarKriteria as $dkrit)
-                                <th>{{ $dkrit->kriterias->criteria }}</th>
-                                @endforeach
                                 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($daftarKandidat as $dkand)
+                            @foreach($nilai_rank as $kand_rank)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $dkand->kandidats->name }}</td>
-                                <td>1000</td>
-                                @foreach($daftarKriteria as $dkrit)
-                                <td>
-                                    @foreach($nilai as $nil)
-                                        @if ($nil->kandidat_penilaian == $dkand->id && $nil->kriteria_penilaian == $dkrit->id)
-                                            {{ $nil->nilai }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                @endforeach
+                                <td>{{ $kand_rank->kandidatPenilaian->kandidats->name }}</td>
+                                <td>{{ $kand_rank->nilai_ranking }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -234,44 +222,6 @@
             </div>
         </div>
         <!-- End Kriteria Modal-->
-
-        {{-- @foreach($dataIsiNilai as $nil)
-        <!-- Nilai Modal-->
-        <div class="modal fade" id="tambahNilaiModal{{ $nil->id }}" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Form Tambah Nilai</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="{{ route('isi_nilai', ['id'=> $dkand->id, 'id_rekap'=> $rekap->id]) }}" id="tambahKandidatForm" method="POST" >
-                    @csrf
-                    @method('put')
-                    <div class="modal-body">
-                        <div class="row mb-3">
-                            <label for="namaKandidat" class="col-sm-2 col-form-label">Nama Kandidat</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nama_kandidat" name="nama_kandidat" value="{{ $nil }}" />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="namaKandidat" class="col-sm-2 col-form-label">Nama Kriteria</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nama_kandidat" name="nama_kandidat" value />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btvn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Tambahkan</button>
-                    </div>
-                </form>
-            </div>
-            </div>
-        </div>
-        <!-- End Nilai Modal-->
-        @endforeach --}}
 
     </section>
 </main>

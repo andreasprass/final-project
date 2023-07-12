@@ -12,6 +12,7 @@ class KandidatPenilaian extends Model
     public function kandidats(){
         return $this->belongsTo(User::class,'user_id','id');
     }
+    
 
     protected $fillable = [
         'id',

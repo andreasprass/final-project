@@ -196,7 +196,7 @@
         <ul id="forms-nav" class="nav-content {{ ($active === "criteria" || $active === "scoring" || $active === "ranking") ? '' : 'collapsed' }} ">
           <li>
             <a href="{{ route('criterias') }}" class="{{ ($active === "criteria" ) ? 'active' : '' }}">
-              <i class="bi bi-circle"></i><span>Criteria</span>
+              <i class="bi bi-circle"></i><span>Kriteria</span>
             </a>
           </li>
         </ul>
