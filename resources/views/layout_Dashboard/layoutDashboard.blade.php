@@ -147,13 +147,13 @@
       <li class="nav-item">
         <a class="nav-link {{ ($active === "dashboard") ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
           <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
+          <span>Halaman Uama</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
         <a class="nav-link {{ ($active === "department" || $active === "division" || $active === "user") ? '' : 'collapsed' }}" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Employee Management</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Manajamen User</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content {{ ($active === "department" || $active === "division" || $active === "user") ? '' : 'collapse' }}" data-bs-parent="#sidebar-nav">
           
@@ -165,17 +165,17 @@
           
           <li>
             <a href="{{ route('get_departments') }}" class="{{ ($active === "department" ) ? 'active' : '' }}">
-              <i class="bi bi-circle"></i><span>Department</span>
+              <i class="bi bi-circle"></i><span>Departemen</span>
             </a>
           </li>
           <li>
             <a href="{{ route('get_divisions') }}" class="{{ ($active === "division" ) ? 'active' : '' }}">
-              <i class="bi bi-circle"></i><span>Division</span>
+              <i class="bi bi-circle"></i><span>Divisi</span>
             </a>
           </li>
           <li>
             <a href="{{ route('get_users') }}" class="{{ ($active === "user" ) ? 'active' : '' }}">
-              <i class="bi bi-circle"></i><span>Users</span>
+              <i class="bi bi-circle"></i><span>User</span>
             </a>
           </li>
         </ul>
@@ -197,6 +197,11 @@
           <li>
             <a href="{{ route('criterias') }}" class="{{ ($active === "criteria" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Kriteria</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('get_rekap') }}" class="{{ ($active === "penilaian") ? 'active' : '' }}">
+              <i class="bi bi-circle"></i><span>Rekap</span>
             </a>
           </li>
         </ul>

@@ -152,7 +152,8 @@ class ScoringController extends Controller
     public function delete_kandidat_penilaian($id, $id_rekap) {
         Scoring::where('kandidat_penilaian',$id)->delete();
         KandidatPenilaian::where('id',$id)->delete();
-        Normalisasi::where('id',$id)->delete();
+        Normalisasi::where('id',$id)->where($id_rekap)->delete();
+        Ranking::where('id',$id)->where($id_rekap)->delete();
         return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Kandidat Telah Dihapus');
     }
 
