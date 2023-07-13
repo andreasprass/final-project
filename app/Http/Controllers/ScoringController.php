@@ -303,7 +303,7 @@ class ScoringController extends Controller
 
                 //Calculate the total score by summing the weighted normalized values
                 foreach($normalizedValue as $normalizedValue){
-                    $weigashtTEMP = $dataKriteria->where('id', $normalizedValue->kriteria_penilaian)->first()->kriterias->weight;
+                    $weightTEMP = $dataKriteria->where('id', $normalizedValue->kriteria_penilaian)->first()->kriterias->weight;
                     $weight = $weightTEMP / $weightSum;
                     $totalScore += $normalizedValue->nilai_normalisasi * $weight;
                 }
