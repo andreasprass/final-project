@@ -49,21 +49,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($rankings as $rank)
+                            @if($rekap->id === $rank->id_rekap)
                             <tr>
-                                <td>1</td>
-                                <td>Jason</td>
-                                <td>190</td>
+                                <td>{{ $loop->iteration}}</td>
+                                <td>{{ $rank->kandidatPenilaian->kandidats->name }}</td>
+                                <td>{{ $rank->nilai_ranking }}</td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Michael</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Eric</td>
-                                <td>170</td>
-                            </tr>
+                            @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
