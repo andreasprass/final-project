@@ -26,7 +26,17 @@
     </div>
 
     <section class="section">
+        @php
+        $currentRekapId = null;
+        @endphp
         @foreach($rekapitulasi as $rekap)
+        @php
+        // Check if the rekap_id has changed
+        if ($currentRekapId !== $rekap->id) {
+            $currentRekapId = $rekap->id;
+            $iteration = 1; // Reset iteration counter to 1
+        }
+        @endphp
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -52,10 +62,13 @@
                             @foreach($rankings as $rank)
                             @if($rekap->id === $rank->id_rekap)
                             <tr>
-                                <td>{{ $loop->iteration}}</td>
+                                <td>{{ $iteration}}</td>
                                 <td>{{ $rank->kandidatPenilaian->kandidats->name }}</td>
                                 <td>{{ $rank->nilai_ranking }}</td>
                             </tr>
+                            @php
+                                $iteration++; // Increment the iteration counter
+                            @endphp
                             @endif
                             @endforeach
                         </tbody>
