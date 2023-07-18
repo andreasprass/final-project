@@ -48,6 +48,13 @@ class UserController extends Controller
     public function delete_user($id){
         User::destroy($id);
         return redirect()->route('get_users')->with('success', 'The data has been deleted');
+
+        $kand_id = KandidatPenilaian::where('criteria_id',$criteria_id)->first('id');
+        Scoring::where('kriteria_penilaian',$krit_id->id)->delete();
+        Normalisasi::where('kriteria_penilaian',$krit_id->id)->delete();
+        KriteriaPenilaian::where('criteria_id',$criteria_id)->delete();
+        Criteria::where('id',$criteria_id)->delete();
+        return redirect()->route('criterias');
     }
 
 }

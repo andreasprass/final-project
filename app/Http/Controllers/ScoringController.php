@@ -152,8 +152,8 @@ class ScoringController extends Controller
     public function delete_kandidat_penilaian($id, $id_rekap) {
         Scoring::where('kandidat_penilaian',$id)->delete();
         KandidatPenilaian::where('id',$id)->delete();
-        Normalisasi::where('id',$id)->where($id_rekap)->delete();
-        Ranking::where('id',$id)->where($id_rekap)->delete();
+        Normalisasi::where('kandidat_penilaian',$id)->where('id_rekap',$id_rekap)->delete();
+        Ranking::where('kandidat_penilaian',$id)->where('id_rekap',$id_rekap)->delete();
         return redirect()->route('get_detail_penilaian',['id' => $id_rekap])->with('success', 'Kandidat Telah Dihapus');
     }
 
@@ -204,8 +204,8 @@ class ScoringController extends Controller
             $cek = Normalisasi::where('id_rekap',$id_rekap)->where('kandidat_penilaian',$row->kandidat_penilaian)->where('kriteria_penilaian',$row->kriteria_penilaian)->exists();
             
             if($cek == true){
-                //Find the weight current criteria
-                $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->weight;
+                // //Find the weight current criteria
+                // $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->weight;
 
                 // Perform normalization based on the minMax attribute of the criteria
                 if($dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->minMax == 'max'){
@@ -238,8 +238,8 @@ class ScoringController extends Controller
 
             }else{
 
-                //Find the weight current criteria
-                $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->weight;
+                // //Find the weight current criteria
+                // $weight = $dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->weight;
 
                 // Perform normalization based on the minMax attribute of the criteria
                 if($dataKriteria->where('id',$row->kriteria_penilaian)->first()->kriterias->minMax == 'max'){

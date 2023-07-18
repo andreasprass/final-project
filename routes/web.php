@@ -82,6 +82,9 @@ Route::delete('/delete-logbook/{id}',[LogbookController::class, 'destroy'])->nam
 Route::get('/criterias',[CriteriaController::class, 'index'])->name('criterias')->middleware('auth');
 Route::get('/add-criterias',[CriteriaController::class, 'create'])->name('get_criteria_add')->middleware('auth');
 Route::post('/add-criterias',[CriteriaController::class, 'store'])->name('criteria_add')->middleware('auth');
+Route::get('/edit-criterias/{criteria_id}',[CriteriaController::class, 'edit'])->name('criteria_edit')->middleware('auth');
+Route::put('/edit-criterias/{criteria_id}',[CriteriaController::class, 'update'])->name('criteria_update')->middleware('auth');
+Route::delete('/delete-criterias/{criteria_id}',[CriteriaController::class, 'delete'])->name('criteria_delete')->middleware('auth');
 
 //Scoring
 Route::get('/scoring',[ScoringController::class, 'index'])->name('scoring')->middleware('auth');

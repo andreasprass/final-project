@@ -52,12 +52,12 @@
                                 <td>{{ ucfirst($crit->minMax) }}</td>
                                 <td>{{ $crit->weight }}</td>
                                 <td>
-                                    <a href="" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
+                                    <a href="{{ route('criteria_edit',['criteria_id'=>$crit->id]) }}" class="btn btn-warning"><span> <i class="bi bi-pencil"></i></span></a>
                                     
-                                    <form action="" method="post" class="d-inline">
+                                    <form action="{{ route('criteria_delete', ['criteria_id'=> $crit->id]) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-danger" onclick="return confirm('Are you sure?')"><span><i class="bi bi-trash"></i></span></button>
+                                        <button class="btn btn-danger" onclick="return confirm('Menghapus Kriteria {{ $crit->criteria }} Akan Menghapus Seluruh Nilai Yang Terkait Dengan Kriteria Tersebut?')"><span><i class="bi bi-trash"></i></span></button>
                                     </form>
                                 </td>
                             </tr>
