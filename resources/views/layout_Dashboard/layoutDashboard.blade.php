@@ -300,10 +300,7 @@
           
         });
         $("table#ranking").DataTable({
-          dom: 'Bfrtip',
-          buttons: [
-              'copy', 'csv', 'excel', 'pdf', 'print'
-          ]
+ 
         });
         $(".ranking").DataTable({
 
