@@ -252,7 +252,7 @@
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
-
+  
   {{-- <script type="text/javascript">
     $(document).ready(function(){
             $.ajaxSetup({
@@ -300,10 +300,13 @@
           
         });
         $("table#ranking").DataTable({
-            
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
         });
         $(".ranking").DataTable({
-            
+
         });
     });
 

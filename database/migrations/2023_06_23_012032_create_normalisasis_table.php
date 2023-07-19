@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('normalisasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kandidat_penilaian')->nullable();
-            $table->float('nilai_normalisasi', 8,2);
+            $table->float('nilai_normalisasi', 8,3);
             $table->foreignId('kriteria_penilaian')->nullable();
             $table->foreignId('id_rekap');
             $table->timestamps();

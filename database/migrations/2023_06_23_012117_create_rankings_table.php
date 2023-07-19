@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('rankings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kandidat_penilaian')->nullable();
-            $table->float('nilai_ranking',8,2);
+            $table->float('nilai_ranking',8,3);
             $table->foreignId('id_rekap');
             $table->timestamps();
         });
