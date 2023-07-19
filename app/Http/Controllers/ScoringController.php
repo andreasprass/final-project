@@ -16,11 +16,11 @@ class ScoringController extends Controller
 {
     //New
     public function get_rekap(){
-        // return view('penilaian',[
-        //     'rekapitulasi' => Rekap::all(),
-        //     'rankings' => Ranking::orderBy('id_rekap')->get(),
-        // ]);
-        dd(Ranking::orderBy('id_rekap')->get());
+        return view('penilaian',[
+            'rekapitulasi' => Rekap::all(),
+            'rankings' => Ranking::orderBy('id_rekap')->get(),
+        ]);
+        // dd(Ranking::orderBy('id_rekap')->get());
 
     }
 

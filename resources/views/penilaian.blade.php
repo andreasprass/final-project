@@ -60,7 +60,7 @@
                         </thead>
                         <tbody>
                             @foreach($rankings as $rank)
-                            @if($rekap->id === $rank->id_rekap)
+                            @if($rekap->id == $rank->id_rekap)
                             <tr>
                                 <td>{{ $iteration}}</td>
                                 <td>{{ $rank->kandidatPenilaian->kandidats->name }}</td>
