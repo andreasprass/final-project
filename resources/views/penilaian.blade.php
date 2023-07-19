@@ -26,17 +26,17 @@
     </div>
 
     <section class="section">
-        @php
+        <?php
         $currentRekapId = null;
-        @endphp
+        ?>
         @foreach($rekapitulasi as $rekap)
-        @php
+        <?php
         // Check if the rekap_id has changed
         if ($currentRekapId !== $rekap->id) {
             $currentRekapId = $rekap->id;
             $iteration = 1; // Reset iteration counter to 1
         }
-        @endphp
+        ?>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -66,9 +66,9 @@
                                 <td>{{ $rank->kandidatPenilaian->kandidats->name }}</td>
                                 <td>{{ $rank->nilai_ranking }}</td>
                             </tr>
-                            @php
+                            <?php
                                 $iteration++; // Increment the iteration counter
-                            @endphp
+                            ?>
                             @endif
                             @endforeach
                         </tbody>
