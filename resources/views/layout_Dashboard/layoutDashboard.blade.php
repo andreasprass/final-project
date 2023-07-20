@@ -87,22 +87,22 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {{-- <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
-            </li>
+            </li> --}}
             <li>
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {{-- <li>
               <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
               </a>
-            </li>
+            </li> --}}
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -149,7 +149,7 @@
             </a>
           </li> --}}
           
-          <li>
+          {{-- <li>
             <a href="{{ route('get_departments') }}" class="{{ ($active === "department" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Departemen</span>
             </a>
@@ -158,7 +158,7 @@
             <a href="{{ route('get_divisions') }}" class="{{ ($active === "division" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>Divisi</span>
             </a>
-          </li>
+          </li> --}}
           <li>
             <a href="{{ route('get_users') }}" class="{{ ($active === "user" ) ? 'active' : '' }}">
               <i class="bi bi-circle"></i><span>User</span>
