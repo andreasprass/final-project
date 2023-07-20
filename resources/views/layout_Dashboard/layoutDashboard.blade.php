@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard</title>
+  <title>{{ $title }}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -18,27 +18,13 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
-  
-
+  {{-- Public DataTable --}}
+  <link href="{{ asset('assets/DataTables/datatables.min.css') }}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-
-  {{-- Jquery --}}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-
-  
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1
@@ -240,70 +226,44 @@
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  {{-- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
   <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/quill/quill.min.js')}}"></script>
-  <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
-  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.4.0/js/responsive.bootstrap5.min.js"></script>
+  {{-- Public DataTable --}}
+  <script src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>
   
-  {{-- <script type="text/javascript">
-    $(document).ready(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $('#tambahKandidatForm').on('submit', function(e){
-              e.preventDefault();
-                var formData = $(this).serialize();
-                var url = "{{ url('simpan-kandidat') }}/{{ $rekap->id }}";
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: formData,
-                    dataType: 'json',
-                    success: function(response){
-                        $('#tambahKandidatModal').css('display', 'none');
-                        $('#detail_rekap').dataTable().ajax.reload();
-                        
-                    },
-                    error: function(error){
-                      $('#tambahKandidatModal').css('display', 'none'); 
-                      $('.modal-backdrop').css('display', 'none'); 
-                      $('#detail_rekap').DataTable().ajax.reload();
-                        console.log(error);
-                    }
-                });
-          });
-      });
-  </script> --}}
   <script type="text/javascript">
     $(function () {
-
         $("#users_table").DataTable({
-
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
         });
-        $("#normalisation_table").DataTable({
-
+        $(".rekap").DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
         });
-        $("#ranking_table").DataTable({
-
+        $("#ranking").DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
         });
-        $("#scoring_table").DataTable({
-          
+        $("#normalisasi").DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
         });
-        $("table#ranking").DataTable({
- 
-        });
-        $(".ranking").DataTable({
-
+        $("#scoring").DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
         });
     });
 

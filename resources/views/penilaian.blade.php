@@ -1,5 +1,6 @@
 @extends('layout_Dashboard.layoutDashboard',[
 'active' => 'penilaian',
+'title' => 'Penilaian',
 ])
 @section('main')
 <main id="main" class="main">
@@ -50,7 +51,7 @@
                     </div>
                 </div>
                 <div class="">
-                    <table class="table ranking stripe table-responsive" style="width:100%;" id="{{ $rekap->id }}">
+                    <table class="table display table-striped dt-responsive nowrap rekap" style="width:100%;" id="{{ $rekap->id }}">
                         <thead>
                             <tr>
                                 <th>Rangking</th>

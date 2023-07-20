@@ -1,5 +1,6 @@
 @extends('layout_Dashboard.layoutDashboard',[
 'active' => 'penilaian',
+'title' => 'Penilaian',
 ])
 @section('main')
 <main id="main" class="main">
@@ -47,7 +48,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $rekap->nama_rekap }}</h5>
                 <div class="dataTable-container">
-                    <table class="table  stripe table-responsive" style="width:100%;" id="ranking">
+                    <table class="table display table-striped dt-responsive nowrap" style="width:100%;" id="scoring">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -98,7 +99,7 @@
             <div class="card-body">
                 <h5 class="card-title">Normalisasi Nilai</h5>
                 <div class="dataTable-container">
-                    <table class="table  stripe table-responsive" style="width:100%;" id="ranking">
+                    <table class="table display table-striped dt-responsive nowrap" style="width:100%;" id="normalisasi">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -132,7 +133,7 @@
             <div class="card-body">
                 <h5 class="card-title">Ranking</h5>
                 <div class="dataTable-container">
-                    <table class="table  stripe table-responsive" style="width:100%;" id="ranking">
+                    <table class="table display table-striped dt-responsive nowrap" style="width:100%;" id="ranking">
                         <thead>
                             <tr>
                                 <th>Ranking</th>

@@ -1,5 +1,6 @@
 @extends('layout_Dashboard.layoutDashboard',[
     'active' => '',
+    'title' => 'Profile',
 ]) 
 @section('main')
 

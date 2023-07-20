@@ -18,9 +18,8 @@ class ScoringController extends Controller
     public function get_rekap(){
         return view('penilaian',[
             'rekapitulasi' => Rekap::all(),
-            'rankings' => Ranking::orderBy('id_rekap')->get(),
+            'rankings' => Ranking::orderBy('id_rekap')->orderBy('nilai_ranking','desc')->get(),
         ]);
-        // dd(Ranking::orderBy('id_rekap')->get());
 
     }
 

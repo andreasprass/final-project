@@ -1,5 +1,6 @@
 @extends('layout_Dashboard.layoutDashboard',[
 'active' => 'division',
+'title' => 'Divisi',
 ])
 @section('main')
 <main id="main" class="main">
