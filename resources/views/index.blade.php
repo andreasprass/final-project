@@ -185,7 +185,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Komposisi Kriteria</h6> 
                         
-                        <div id="chart" class="w-10 h-10"></div>
+                        <div id="chart" class=""></div>
                         <div class="mt-2">
                             <button class="btn btn-secondary btn-sm" id="download-svg">Download SVG</button>
                             <button class="btn btn-secondary btn-sm" id="download-png">Download PNG</button>
