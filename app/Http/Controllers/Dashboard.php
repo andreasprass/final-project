@@ -31,7 +31,6 @@ class Dashboard extends Controller
             $lab_data[] = $label_data->rekap->nama_rekap;
         }
 
-        // dd($lab_data);
         return view('index', [
             'user_count' => $user->count(),
             'rekap_count' => $rekaps->count(),
