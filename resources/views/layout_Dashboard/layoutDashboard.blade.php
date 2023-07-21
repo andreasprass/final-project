@@ -253,10 +253,11 @@
           type: 'donut',
         },
         responsive: [{
-          // breakpoint: 1000,
+          breakpoint: 480,
           options: {
             chart: {
               width: 200
+              height:200,
             },
             legend: {
               position: 'bottom'
