@@ -231,7 +231,7 @@
   {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
   {{-- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}">--}}
   <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
-  <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
+  {{-- <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script> --}}
 
   {{-- Public DataTable --}}
   <script src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>
@@ -248,21 +248,28 @@
 <script type="text/javascript">
     var nilai = @json($krit);
     var labels = @json($label);
-    var options = {
-      chart: {
-        type: 'bar'
-      },
-      series: [{
-        name: 'sales',
-        data: nilai,
-      }],
-      xaxis: {
-        categories: labels,
-      }
-    }
+    // Sample data for the chart (replace this with your actual data)
+    var data = {
+        labels: labels,
+        datasets: [{
+            data: nilai,
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56','#4BC0C0','#FF9F40','#9966FF','#FFCD56','#C9CBCF'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56','#4BC0C0','#FF9F40','#9966FF','#FFCD56','#C9CBCF'],
+        }]
+    };
 
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false
+    };
+
+    // Create the doughnut chart
+    var ctx = document.getElementById('chart').getContext('2d');
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: options
+    });
 
     // Function to download chart as SVG
     function downloadSVG() {
