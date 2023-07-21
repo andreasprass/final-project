@@ -253,7 +253,7 @@
           type: 'donut',
         },
         responsive: [{
-          breakpoint: 480,
+          breakpoint: 10,
           options: {
             chart: {
               width: 200
