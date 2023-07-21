@@ -249,23 +249,17 @@
     var nilai = @json($krit);
     var labels = @json($label);
     var options = {
-          series: nilai,
-          labels: labels,
-          chart: {
-          type: 'donut',
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-      };
+      chart: {
+        type: 'bar'
+      },
+      series: [{
+        name: 'sales',
+        data: nilai,
+      }],
+      xaxis: {
+        categories: labels,
+      }
+    }
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
@@ -317,7 +311,7 @@
         xaxis: {
           categories: label_data,
         }
-        };
+      };
 
         var jml_nilai = new ApexCharts(document.querySelector("#jumlah_nilai"), options);
         jml_nilai.render();
@@ -382,68 +376,6 @@
           ]
         });
     });
-
-    // function radarChart(){
-
-
-    //   var radarData = data.map(item => {
-    //     name: item.kandiat_penilaian,
-    //     value: item.nilai
-    //   })
-
-    //   var 
-    //   // Create the radar chart
-    //   var radarChart = echarts.init(document.getElementById('#budgetChart')); 
-
-    //   var option = {
-    //     legend: {
-    //       data: ['Allocated Budget', 'Actual Spending']
-    //     },
-    //     radar: {
-    //       // shape: 'circle',
-    //       indicator: [{
-    //           name: 'Sales',
-    //           max: 6500
-    //         },
-    //         {
-    //           name: 'Administration',
-    //           max: 16000
-    //         },
-    //         {
-    //           name: 'Information Technology',
-    //           max: 30000
-    //         },
-    //         {
-    //           name: 'Customer Support',
-    //           max: 38000
-    //         },
-    //         {
-    //           name: 'Development',
-    //           max: 52000
-    //         },
-    //         {
-    //           name: 'Marketing',
-    //           max: 25000
-    //         }
-    //       ]
-    //     },
-    //     series: [{
-    //       name: 'Budget vs spending',
-    //       type: 'radar',
-    //       data: [{
-    //           value: [4200, 3000, 20000, 35000, 50000, 18000],
-    //           name: 'Allocated Budget'
-    //         },
-    //         {
-    //           value: [5000, 14000, 28000, 26000, 42000, 21000],
-    //           name: 'Actual Spending'
-    //         }
-    //       ]
-    //     }]
-    //   };
-    // }
-
-    // radarChart.setOption(option);
   </script>
   
 
