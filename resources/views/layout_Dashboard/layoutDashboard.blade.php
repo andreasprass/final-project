@@ -239,6 +239,56 @@
 
 <!-- Include the downloadjs library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
+
+
+@if(isset($krit) && isset($label))
+<!-- Your existing script -->
+<script type="text/javascript">
+    var nilai = @json($krit);
+    var labels = @json($label);
+    var options = {
+        series: nilai,
+        chart: {
+            type: 'donut',
+        },
+        labels: labels,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+    // Function to download chart as SVG
+    function downloadSVG() {
+        domtoimage.toSvg(document.getElementById('chart'))
+            .then(function (dataUrl) {
+                download(dataUrl, 'komposisi-kriteria.svg');
+            });
+    }
+
+    // Function to download chart as PNG
+    function downloadPNG() {
+        domtoimage.toPng(document.getElementById('chart'))
+            .then(function (dataUrl) {
+                download(dataUrl, 'komposisi-kriteria.png');
+            });
+    }
+
+    // Attach event listeners to the buttons
+    document.getElementById('download-svg').addEventListener('click', downloadSVG);
+    document.getElementById('download-png').addEventListener('click', downloadPNG);
+</script>
+@endif
 @if(isset($jumlah_nilai) && isset($label_data))
 <!-- Your existing script -->
 <script type="text/javascript">
@@ -290,56 +340,6 @@
         document.getElementById('download2-png').addEventListener('click', downloadPNG);
 </script>
 @endif
-
-@if(isset($krit) && isset($label))
-<!-- Your existing script -->
-<script type="text/javascript">
-    var nilai = @json($krit);
-    var labels = @json($label);
-    var options = {
-        series: nilai,
-        chart: {
-            type: 'donut',
-        },
-        labels: labels,
-        responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }]
-    };
-
-    var chart = new ApexCharts(document.querySelector("#chart"), options);
-    chart.render();
-
-    // Function to download chart as SVG
-    function downloadSVG() {
-        domtoimage.toSvg(document.getElementById('chart'))
-            .then(function (dataUrl) {
-                download(dataUrl, 'komposisi-kriteria.svg');
-            });
-    }
-
-    // Function to download chart as PNG
-    function downloadPNG() {
-        domtoimage.toPng(document.getElementById('chart'))
-            .then(function (dataUrl) {
-                download(dataUrl, 'komposisi-kriteria.png');
-            });
-    }
-
-    // Attach event listeners to the buttons
-    document.getElementById('download-svg').addEventListener('click', downloadSVG);
-    document.getElementById('download-png').addEventListener('click', downloadPNG);
-</script>
-  @endif
-
   <script type="text/javascript">
     $(function () {
         $("#users_table").DataTable({
