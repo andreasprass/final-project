@@ -135,7 +135,7 @@
       <li class="nav-item">
         <a class="nav-link {{ ($active === "dashboard") ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
           <i class="bi bi-grid"></i>
-          <span>Halaman Uama</span>
+          <span>Halaman Utama</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
