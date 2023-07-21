@@ -247,23 +247,23 @@
     var nilai = @json($krit);
     var labels = @json($label);
     var options = {
-        series: nilai,
-        chart: {
-            type: 'donut',
+          series: nilai,
+          labels: labels,
+          chart: {
+          type: 'donut',
         },
-        labels: labels,
         responsive: [{
-            breakpoint: 480,
-            options: {
-                chart: {
-                    width: 200
-                },
-                legend: {
-                    position: 'bottom'
-                }
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
             }
+          }
         }]
-    };
+      };
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
@@ -289,6 +289,7 @@
     document.getElementById('download-png').addEventListener('click', downloadPNG);
 </script>
 @endif
+
 @if(isset($jumlah_nilai) && isset($label_data))
 <!-- Your existing script -->
 <script type="text/javascript">
