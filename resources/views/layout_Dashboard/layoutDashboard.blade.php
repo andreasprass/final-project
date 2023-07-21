@@ -226,7 +226,7 @@
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  {{-- <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script> --}}
   {{-- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
   <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
