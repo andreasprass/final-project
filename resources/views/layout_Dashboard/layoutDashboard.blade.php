@@ -225,14 +225,121 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+  {{-- <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script> --}}
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   {{-- <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
   <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
   <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
 
   {{-- Public DataTable --}}
   <script src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>
-  
+
+<!-- Include the dom-to-image library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+
+<!-- Include the downloadjs library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
+@if(isset($jumlah_nilai) && isset($label_data))
+<!-- Your existing script -->
+<script type="text/javascript">
+  var jumlah_nilai = @json($jumlah_nilai);
+  var label_data = @json($label_data);
+   var options = {
+          series: [{
+          data: jumlah_nilai,
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: label_data,
+        }
+        };
+
+        var jml_nilai = new ApexCharts(document.querySelector("#jumlah_nilai"), options);
+        jml_nilai.render();
+
+        // Function to download chart as SVG
+        function downloadSVG() {
+            domtoimage.toSvg(document.getElementById('jumlah_nilai'))
+                .then(function (dataUrl) {
+                    download(dataUrl, 'jumlah-nilai.svg');
+                });
+        }
+
+        // Function to download chart as PNG
+        function downloadPNG() {
+            domtoimage.toPng(document.getElementById('jumlah_nilai'))
+                .then(function (dataUrl) {
+                    download(dataUrl, 'jumlah-nilai.png');
+                });
+        }
+
+        // Attach event listeners to the buttons
+        document.getElementById('download2-svg').addEventListener('click', downloadSVG);
+        document.getElementById('download2-png').addEventListener('click', downloadPNG);
+</script>
+@endif
+
+@if(isset($krit) && isset($label))
+<!-- Your existing script -->
+<script type="text/javascript">
+    var nilai = @json($krit);
+    var labels = @json($label);
+    var options = {
+        series: nilai,
+        chart: {
+            type: 'donut',
+        },
+        labels: labels,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+    // Function to download chart as SVG
+    function downloadSVG() {
+        domtoimage.toSvg(document.getElementById('chart'))
+            .then(function (dataUrl) {
+                download(dataUrl, 'komposisi-kriteria.svg');
+            });
+    }
+
+    // Function to download chart as PNG
+    function downloadPNG() {
+        domtoimage.toPng(document.getElementById('chart'))
+            .then(function (dataUrl) {
+                download(dataUrl, 'komposisi-kriteria.png');
+            });
+    }
+
+    // Attach event listeners to the buttons
+    document.getElementById('download-svg').addEventListener('click', downloadSVG);
+    document.getElementById('download-png').addEventListener('click', downloadPNG);
+</script>
+  @endif
+
   <script type="text/javascript">
     $(function () {
         $("#users_table").DataTable({
@@ -253,6 +360,12 @@
               'copy', 'csv', 'excel', 'pdf', 'print'
           ]
         });
+        $("#table.Dashboard").DataTable({
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
+        });
         $("#normalisasi").DataTable({
           dom: 'Bfrtip',
           buttons: [
@@ -267,29 +380,69 @@
         });
     });
 
-    // var quill = new Quill('#editor', {
-    //   modules: {
-    //     toolbar: [
-    //       ['bold', 'italic'],
-    //       ['link', 'blockquote', 'code-block'],
-    //       [{ list: 'ordered' }, { list: 'bullet' }]
-    //     ]
-    //   },
-    //   placeholder: 'Write your logbook here...  ',
-    //   theme: 'snow'
-    // });
+    // function radarChart(){
 
-    // function submitQuill(){
-    //   var qhtml = document.querySelector('input[name=logbook]');
-    //   qhtml.value = JSON.stringify(quill.getContents());
+
+    //   var radarData = data.map(item => {
+    //     name: item.kandiat_penilaian,
+    //     value: item.nilai
+    //   })
+
+    //   var 
+    //   // Create the radar chart
+    //   var radarChart = echarts.init(document.getElementById('#budgetChart')); 
+
+    //   var option = {
+    //     legend: {
+    //       data: ['Allocated Budget', 'Actual Spending']
+    //     },
+    //     radar: {
+    //       // shape: 'circle',
+    //       indicator: [{
+    //           name: 'Sales',
+    //           max: 6500
+    //         },
+    //         {
+    //           name: 'Administration',
+    //           max: 16000
+    //         },
+    //         {
+    //           name: 'Information Technology',
+    //           max: 30000
+    //         },
+    //         {
+    //           name: 'Customer Support',
+    //           max: 38000
+    //         },
+    //         {
+    //           name: 'Development',
+    //           max: 52000
+    //         },
+    //         {
+    //           name: 'Marketing',
+    //           max: 25000
+    //         }
+    //       ]
+    //     },
+    //     series: [{
+    //       name: 'Budget vs spending',
+    //       type: 'radar',
+    //       data: [{
+    //           value: [4200, 3000, 20000, 35000, 50000, 18000],
+    //           name: 'Allocated Budget'
+    //         },
+    //         {
+    //           value: [5000, 14000, 28000, 26000, 42000, 21000],
+    //           name: 'Actual Spending'
+    //         }
+    //       ]
+    //     }]
+    //   };
     // }
-    
-    // function showDataToEditor(){
-    //   var qhtml = document.querySelector('input[name=logbook]');
-    //   var data = JSON.parse(qhtml.value);
-    //   quill.setContents(data);
-    // }
+
+    // radarChart.setOption(option);
   </script>
+  
 
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/js/main.js') }}"></script>
