@@ -19,4 +19,7 @@ Some features may still have bugs and need improvement. Some features like the P
 
 ## Want to fix
 
-Route simplify using resource, currently using default and manual route and it's very chaotic 😊.
+-   Route simplify using resource, currently using default and manual route and it's very chaotic 😊.
+-   Complete validation to validate the data before create/save in the database.
+-   Add profile feature to give more information.
+-   Add more rules to password.
